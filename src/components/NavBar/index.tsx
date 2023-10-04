@@ -1,0 +1,46 @@
+import Image from "next/image";
+import Link from "next/link";
+import { BsFillPersonFill } from 'react-icons/bs'
+import { MdFavorite } from 'react-icons/md'
+import {IoMdCart} from 'react-icons/io'
+
+type navBarProps = {
+    hasIconAccount?: boolean;
+    hasIconFav?: boolean,
+    hasIconCart?: boolean;
+};
+
+const NavBar = ({ hasIconAccount, hasIconFav, hasIconCart}: navBarProps) => {
+  return (
+    <nav className="w-full h-24 flex justify-around items-center bg-neutral-950 text-white top-0 fixed">
+      <div className="">
+        <Link href="/about" className="">
+          <Image
+            src='/quemSomosJorri.png'
+            alt="Quem Somos"
+            width={30}
+            height={30}
+            className="object-contain"
+          /></Link>
+      </div>
+      <div className="">
+        <Link href="/">
+          <Image
+            src="/logoJorri.png"
+            alt="Logo Jorri"
+            width={150}
+            height={150}
+            className="object-contain"
+          />
+        </Link>
+      </div>
+      <div className="flex gap-4 text-3xl">
+        <Link href='/profile'>{hasIconAccount && <BsFillPersonFill/>}</Link>
+        <Link href='/'>{hasIconFav && <MdFavorite/>}</Link>
+        <Link href='/'><button>{hasIconCart && <IoMdCart/>}</button></Link>
+      </div>
+    </nav>
+  );
+};
+
+export {NavBar}
