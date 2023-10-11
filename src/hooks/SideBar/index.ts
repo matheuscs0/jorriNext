@@ -1,0 +1,1 @@
+export { HandlesSideBar } from './SideBar';

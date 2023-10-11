@@ -1,18 +1,22 @@
+'use client'
 import Image from "next/image";
 import Link from "next/link";
 import { BsFillPersonFill } from 'react-icons/bs'
 import { MdFavorite } from 'react-icons/md'
 import {IoMdCart} from 'react-icons/io'
+import { Input } from "../Inputs";
+
 
 type navBarProps = {
     hasIconAccount?: boolean;
     hasIconFav?: boolean,
     hasIconCart?: boolean;
-};
+    onOpenCart:  () => void;
+}
+const NavBar = ({ hasIconAccount, hasIconFav, hasIconCart, onOpenCart}: navBarProps) => {
 
-const NavBar = ({ hasIconAccount, hasIconFav, hasIconCart}: navBarProps) => {
   return (
-    <nav className="w-full h-24 flex justify-around items-center bg-neutral-950 text-white top-0 fixed">
+    <nav className="w-full h-24 flex justify-around items-center bg-neutral-950 text-white top-0 ">
       <div className="">
         <Link href="/about" className="">
           <Image
@@ -35,9 +39,15 @@ const NavBar = ({ hasIconAccount, hasIconFav, hasIconCart}: navBarProps) => {
         </Link>
       </div>
       <div className="flex gap-4 text-3xl">
-        <Link href='/profile'>{hasIconAccount && <BsFillPersonFill/>}</Link>
-        <Link href='/'>{hasIconFav && <MdFavorite/>}</Link>
-        <Link href='/'><button>{hasIconCart && <IoMdCart/>}</button></Link>
+        <Input
+          placeholder="Pesquise um produto..."
+          name="search"
+          type="search"
+          
+        />
+        <Link href='/profile'>{hasIconAccount && <BsFillPersonFill />}</Link>
+        <Link href='/nata'>{hasIconFav && <MdFavorite/>}</Link>
+        <button onClick={onOpenCart}>{hasIconCart && <IoMdCart/>}</button>
       </div>
     </nav>
   );

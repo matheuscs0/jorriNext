@@ -5,7 +5,7 @@ type GridContainerProps = {
 }
 const GridContainer = ({children}: GridContainerProps) => {
     return(
-        <div className="w-full h-full justify-center items-center grid-cols-3">
+        <div className=" flex justify-center items-center gap-4 flex-wrap ">
             {children}
         </div>
     )
