@@ -3,7 +3,7 @@ import { ProductCard } from "@/components/ProductCard";
 import  GridContainer  from "@/templates/GridContainer";
 import { NavBar } from "@/components/NavBar";
 import Cart from "@/components/CartItems";
-import { HandlesSideBar } from "@/hooks/SideBar";
+import { HandlesSideBar } from "@/hooks/HandlesSideBar";
 
 export default function Home() {
 

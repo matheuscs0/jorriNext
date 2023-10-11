@@ -13,6 +13,25 @@ const config: Config = {
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
+      keyframes: {
+        sideBar: {
+          '0%': {
+            width: '0',
+          },
+          '25%': {
+            width: '50px'
+          },
+          '50%': {
+            width: '150px'
+          },
+          '100%': {
+            width: '300px'
+          }
+        }
+      },
+      animation: {
+        sideBar: 'sideBar 0.2s ease-in-out'
+      }
     },
   },
   plugins: [],
