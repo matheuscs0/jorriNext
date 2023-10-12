@@ -40,13 +40,13 @@ const NavBar = ({ hasIconAccount, hasIconFav, hasIconCart, onOpenCart}: navBarPr
       </div>
       <div className="flex gap-4 text-3xl">
         <Input
-          placeholder="Pesquise um produto..."
+          placeholder="Pesquise por um produto..."
           name="search"
           type="search"
           
         />
-        <Link href='/profile'>{hasIconAccount && <BsFillPersonFill />}</Link>
-        <Link href='/nata'>{hasIconFav && <MdFavorite/>}</Link>
+        <Link href='/login'>{hasIconAccount && <BsFillPersonFill />}</Link>
+        <Link href='/'>{hasIconFav && <MdFavorite/>}</Link>
         <button onClick={onOpenCart}>{hasIconCart && <IoMdCart/>}</button>
       </div>
     </nav>
