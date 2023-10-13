@@ -4,7 +4,7 @@ import Link from "next/link";
 import { BsFillPersonFill } from 'react-icons/bs'
 import { MdFavorite } from 'react-icons/md'
 import {IoMdCart} from 'react-icons/io'
-import { Input } from "../Inputs";
+import { InputSearch } from "../InputSearch";
 
 
 type navBarProps = {
@@ -39,7 +39,7 @@ const NavBar = ({ hasIconAccount, hasIconFav, hasIconCart, onOpenCart}: navBarPr
         </Link>
       </div>
       <div className="flex gap-4 text-3xl">
-        <Input
+        <InputSearch
           placeholder="Pesquise por um produto..."
           name="search"
           type="search"

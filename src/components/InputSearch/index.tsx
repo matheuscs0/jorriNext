@@ -8,7 +8,7 @@ type InputProps = HTMLAttributes<HTMLInputElement> & {
   hasIconSearch?: boolean;
 };
 
-const Input = (props: InputProps) => {
+const InputSearch = (props: InputProps) => {
   return (
       <input
         {...props}
@@ -17,4 +17,4 @@ const Input = (props: InputProps) => {
   );
 };
 
-export { Input };
+export { InputSearch };
