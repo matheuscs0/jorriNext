@@ -1,17 +1,15 @@
-'use client'
+"use client";
 import { ProductCard } from "@/components/ProductCard";
 import { NavBar } from "@/components/NavBar";
 import { Cart } from "@/components/CartItems";
 import { HandlesSideBar } from "@/hooks/HandlesSideBar";
-import {useState, useEffect} from 'react'
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { Loading } from "@/components/Loading";
 export default function Home() {
-
-  const {toggleCart, cartOpen} = HandlesSideBar()
+  const { toggleCart, cartOpen } = HandlesSideBar();
 
   const [loading, setLoading] = useState(true);
-  const [data, setData] = useState([])
 
   async function getApi() {
     const response = await axios.get("http://localhost:3002/api/products");
@@ -26,16 +24,16 @@ export default function Home() {
 
   return (
     <div className="w-full h-full items-center justify-center">
-      <NavBar hasIconAccount={true} hasIconCart={true} hasIconFav={true} 
-        onOpenCart={toggleCart}      
+      <NavBar
+        hasIconAccount={true}
+        hasIconCart={true}
+        hasIconFav={true}
+        onOpenCart={toggleCart}
       />
       <div className="flex flex-wrap justify-center items-center gap-5 p-5">
-        {loading ? <Loading/> :
-        <ProductCard
-        />
-       }
+        {loading ? <Loading /> : <ProductCard />}
       </div>
-      {cartOpen && (<Cart/>)}
+      {cartOpen && <Cart />}
     </div>
-  )
+  );
 }
