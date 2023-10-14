@@ -15,10 +15,10 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           id={name}
           {...props}
           ref={ref}
-          className="w=[300px] h-10 rounded-md bg-slate-100 p-5 outline-none text-md text-neutral-950"
+          className="w-full h-10 rounded-md bg-slate-100 outline-none text-md p-5 text-neutral-950"
         />
         {props.helperText && (
-          <p className="text-xs text-red-600 p-1">{props.helperText}</p>
+          <p className="text-xs font-bold text-red-600 p-1">{props.helperText}</p>
         )}
       </div>
     );

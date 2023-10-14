@@ -14,7 +14,7 @@ export const ButtonLink = ({ children, href, ...rest }: ButtonLinkProps) => {
   return (
     <>
       <Link
-        className="w-full h-8 rounded-lg bg-neutral-950 text-white text-xs shadow-xl"
+        className="w-full h-10 rounded-lg bg-neutral-950 text-white text-md shadow-xl flex justify-center items-center"
         {...rest}
         href={href}
       >

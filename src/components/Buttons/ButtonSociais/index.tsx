@@ -3,7 +3,8 @@ import { BsFacebook, BsGoogle } from "react-icons/bs";
 type ButtonSociaisProps = {
     hasIconGoogle?: boolean
     hasIconFacebook?: boolean
-    span: string
+    span: string,
+    onClick?: () => void
 }
 export const ButtonSociais = ({hasIconFacebook, hasIconGoogle, span}: ButtonSociaisProps) => {
     return (
