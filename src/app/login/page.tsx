@@ -15,7 +15,7 @@ export default function ProfilePage(){
             hasIconFav={true}
             onOpenCart={toggleCart}
             />
-            <div className="w-full flex justify-center items-center h-screen">
+            <div className="w-full flex justify-center items-center h-full">
             <Login/>
             </div>
             {cartOpen && (<Cart/>)}

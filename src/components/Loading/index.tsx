@@ -1,7 +1,7 @@
-import {AiOutlineLoading3Quarters} from 'react-icons/ai'
+import {AiOutlineLoading} from 'react-icons/ai'
 
 export const Loading = () => {
     return(
-            <AiOutlineLoading3Quarters className='animate-spin'/>
+            <AiOutlineLoading className='animate-spin' size={50}/>
     )
 }

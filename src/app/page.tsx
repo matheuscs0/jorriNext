@@ -13,9 +13,7 @@ export default function Home() {
 
   async function getApi() {
     const response = await axios.get("http://localhost:3002/api/products");
-    const data = response.data;
     setLoading(false);
-    console.log(data);
   }
 
   useEffect(() => {
@@ -31,7 +29,13 @@ export default function Home() {
         onOpenCart={toggleCart}
       />
       <div className="flex flex-wrap justify-center items-center gap-5 p-5">
-        {loading ? <Loading /> : <ProductCard />}
+        {loading ? (
+          <div className="w-full h-screen flex justify-center items-center">
+            <Loading />
+          </div>
+        ) : (
+          <ProductCard />
+        )}
       </div>
       {cartOpen && <Cart />}
     </div>

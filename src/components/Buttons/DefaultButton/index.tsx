@@ -4,6 +4,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
   bg: string;
   colorText: string
+  onAddToCart: () => void
 }
 
 export const Button = (props: ButtonProps) => {
