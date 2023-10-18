@@ -8,7 +8,7 @@ export function Cart() {
   const { handleCloseCart } = HandlesSideBar();
 
   return (
-    <div className="w-[300px] h-screen bg-neutral-950 shadow-2xl text-white top-24 absolute z-50 right-0 animate-[sideBar_0.2s_ease-in-out] overflow-scroll">
+    <div className="w-[300px] h-screen fixed bg-neutral-950 shadow-2xl text-white top-24 absolute z-50 right-0 animate-[sideBar_0.2s_ease-in-out] overflow-scroll">
       <div className="w-full h-full ">
         <button className="p-4">
           <AiOutlineClose onClick={handleCloseCart} />

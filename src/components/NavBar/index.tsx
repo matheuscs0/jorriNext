@@ -5,15 +5,10 @@ import { BsFillPersonFill } from 'react-icons/bs'
 import { MdFavorite } from 'react-icons/md'
 import {IoMdCart} from 'react-icons/io'
 import { InputSearch } from "../InputSearch";
+import { NavBarProps } from "@/types/NavBarProps";
 
 
-type navBarProps = {
-    hasIconAccount?: boolean;
-    hasIconFav?: boolean,
-    hasIconCart?: boolean;
-    onOpenCart:  () => void;
-}
-const NavBar = ({ hasIconAccount, hasIconFav, hasIconCart, onOpenCart}: navBarProps) => {
+const NavBar = ({ hasIconAccount, hasIconFav, hasIconCart, onOpenCart}: NavBarProps) => {
 
   return (
     <nav className="w-full h-24 flex justify-around items-center bg-neutral-950 text-white top-0 ">
@@ -45,9 +40,9 @@ const NavBar = ({ hasIconAccount, hasIconFav, hasIconCart, onOpenCart}: navBarPr
           type="search"
           
         />
-        <Link href='/login'>{hasIconAccount && <BsFillPersonFill />}</Link>
-        <Link href='/'>{hasIconFav && <MdFavorite/>}</Link>
-        <button onClick={onOpenCart}>{hasIconCart && <IoMdCart/>}</button>
+        <div><Link href='/login'>{hasIconAccount && <BsFillPersonFill />}</Link></div>
+        <div><Link href='/'>{hasIconFav && <MdFavorite/>}</Link></div>
+        <button onClick={onOpenCart} >{hasIconCart && <div className="flex items-center relative"><IoMdCart/> <span className="bg-neutral-600 text-sm font-bold rounded-full w-5 h-5 absolute left-4 bottom-5">5</span></div>}</button>
       </div>
     </nav>
   );

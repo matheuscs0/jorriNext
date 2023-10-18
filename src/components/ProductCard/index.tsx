@@ -1,54 +1,46 @@
 import Link from "next/link";
 import { ButtonLink } from "../Buttons/ButtonLink";
-import axios from "axios";
 import { useEffect, useState } from "react";
-import { HandlesSideBar } from "@/hooks/HandlesSideBar";
-import { Button } from "../Buttons/DefaultButton";
+import { ProductType } from "@/types/ProductsType";
 
-type Product = {
-  id: number;
-  name: string;
-  price: number;
-};
+const ProductCard = () => {
+  const [products, setProducts] = useState<ProductType[]>([]);
 
-const ProductCard: React.FC = () => {
-  const [products, setProducts] = useState<Product[]>([]);
-  const {addToCart} = HandlesSideBar()
-
-  async function getApi() {
+  async function getProducts() {
     try {
-      const response = await axios.get<Product[]>(
-        "http://localhost:3002/api/products"
-      );
-      const data = response.data;
-      setProducts(data);
+      const res = await fetch('https://fakestoreapi.com/products');
+      if (!res.ok) {
+        throw new Error("Erro");
+      }
+      const data = await res.json();
+      setProducts(data); 
     } catch (error) {
-      console.error("Erro ao obter dados da API:", error);
+      console.error("Erro ao buscar produtos:", error);
     }
   }
-  
+
   useEffect(() => {
-    getApi();
+    getProducts();
   }, []);
 
   return (
     <>
-      {products.map((product) => (
+      {products.map((product: ProductType) => (
         <div
-          className="flex flex-col w-[308px] h-[410px] bg-zinc-100 justify-around items-center p-5 rounded-2xl cursor-pointer hover:shadow-md transition-all"
+          className="flex flex-col w-[308px] h-[410px] bg-zinc-100 justify-around items-center p-4 rounded-2xl cursor-pointer hover:shadow-md transition-all"
           key={product.id}
         >
-          <Link href="/">
+          <Link href="/" className="w-full h-full">
             <div className="flex w-full h-[250px] justify-center items-center">
               <img
-                src="logoJorri.png"
-                alt={product.name}
-                className="flex w-full h-full object-contain"
+                src={product.image}
+                alt={product.title}
+                className="flex w-full h-full object-contain relative"
               />
             </div>
             <div className="flex flex-col justify-center items-center gap-2 w-full">
-              <h3 className="text-center text-lg font-medium">
-                {product.name}
+              <h3 className="text-center text-sm font-medium h-full">
+                {product.title}
               </h3>
               <p>
                 {new Intl.NumberFormat("pt-BR", {
@@ -58,11 +50,7 @@ const ProductCard: React.FC = () => {
               </p>
             </div>
             <div className="w-full flex justify-center items-center my-4">
-            <Button
-            bg="bg-neutral-950"
-            colorText="text-white"
-            onAddToCart={addToCart}
-            >Comprar</Button>
+              <ButtonLink href="/">Ver detalhes</ButtonLink>
             </div>
           </Link>
         </div>
@@ -72,3 +60,5 @@ const ProductCard: React.FC = () => {
 };
 
 export { ProductCard };
+
+

@@ -1,7 +1,9 @@
+
 import "./globals.css";
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import { CartProvider } from "@/contexts/CartProvider";
+import { Cart } from "@/components/CartItems";
 
 const montserrat = Montserrat({
   weight: ["300", "700"],

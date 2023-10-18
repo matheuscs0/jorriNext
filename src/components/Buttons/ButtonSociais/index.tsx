@@ -1,8 +1,8 @@
 import { BsFacebook, BsGoogle } from "react-icons/bs";
 
 type ButtonSociaisProps = {
-    hasIconGoogle?: boolean
-    hasIconFacebook?: boolean
+    hasIconGoogle?: boolean | undefined
+    hasIconFacebook?: boolean | undefined
     span: string,
     onClick?: () => void
 }
