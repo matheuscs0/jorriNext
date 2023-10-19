@@ -7,9 +7,9 @@ export function CartIcon() {
 
   return (
     <>
-    <div className="flex items-center relative">
+    <div className="flex items-center relative cursor-pointer">
       <IoMdCart onClick={toggleCart} />
-      <span className="bg-neutral-600 text-sm font-bold rounded-full w-5 h-5 absolute left-4 bottom-5">
+      <span className="bg-neutral-600 text-sm font-bold rounded-full w-5 h-5 absolute left-4 bottom-5 flex justify-center ">
         5
       </span>
     </div>
