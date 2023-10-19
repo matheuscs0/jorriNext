@@ -14,7 +14,7 @@ export function Cart() {
           <AiOutlineClose onClick={handleCloseCart} />
         </button>
         <div className="w-full flex justify-center items-center">
-        <h1 className="text-xl ">Carrinho</h1>
+        <h1 className="text-xl">Carrinho</h1>
         </div>
         <div className="w-full h-full">
         <CardCart/>

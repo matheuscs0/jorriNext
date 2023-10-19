@@ -12,6 +12,7 @@ interface CartContextType {
   cartItems: ProductType[];
   setCartItems: (items: ProductType[]) => void;
   addProduct: (product: ProductType) => void
+  deleteProduct: (product: ProductType) => void
 }
 
 const CartContext = createContext<CartContextType>({} as CartContextType);
@@ -24,8 +25,13 @@ export function CartProvider({ children }: CartContextProps) {
     setCartItems(updatedCartItems);
   };
 
+  const deleteProduct = (product: ProductType) => {
+    const updatedCartItems = cartItems.filter((item) => item.id !== product.id);
+    setCartItems(updatedCartItems);
+  }
+
   return (
-    <CartContext.Provider value={{ cartOpen, setCartOpen, cartItems, setCartItems, addProduct }}>
+    <CartContext.Provider value={{ cartOpen, setCartOpen, cartItems, setCartItems, addProduct, deleteProduct }}>
       {children}
     </CartContext.Provider>
   );
