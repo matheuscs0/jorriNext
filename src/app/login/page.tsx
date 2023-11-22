@@ -1,5 +1,5 @@
 'use client'
-import { Cart } from "@/components/CartItems"
+import { Cart } from "@/components/Cart"
 import { Login } from "@/components/Login"
 import { NavBar } from "@/components/NavBar"
 import { HandlesSideBar } from "@/hooks/HandlesSideBar"
@@ -9,13 +9,7 @@ export default function ProfilePage(){
 
     return(
         <div className="w-full h-screen flex-col">
-            <NavBar 
-            hasIconAccount={false}
-            hasIconCart={true}
-            hasIconFav={true}
-            onOpenCart={toggleCart}
-            />
-            <div className="w-full flex justify-center items-center h-full">
+            <div className="w-full flex justify-center h-full">
             <Login/>
             </div>
             {cartOpen && (<Cart/>)}

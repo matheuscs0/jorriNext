@@ -1,48 +1,39 @@
 'use client'
-import Image from "next/image";
 import Link from "next/link";
-import { BsFillPersonFill } from 'react-icons/bs'
-import { MdFavorite } from 'react-icons/md'
-import {IoMdCart} from 'react-icons/io'
+import { IoPersonOutline } from "react-icons/io5";
 import { InputSearch } from "../InputSearch";
 import { NavBarProps } from "@/types/NavBarProps";
 import { CartIcon } from '../CartIcon/index';
+import { Cardo } from "next/font/google";
+import { MenuIcon } from "../Menu/MenuIcon";
+
+const cardo = Cardo({
+  weight: ["400", "700"],
+  subsets: ["latin"],
+  display: "swap",
+});
 
 
-const NavBar = ({ hasIconAccount, hasIconFav, }: NavBarProps) => {
+const NavBar = ({ hasIconAccount }: NavBarProps) => {
 
   return (
-    <nav className="w-full h-24 flex justify-around items-center bg-neutral-950 text-white top-0 ">
+    <nav className="w-full h-24 flex justify-around items-center bg-white text-black top-0 shadow-md fixed z-30">
       <div className="">
-        <Link href="/about" className="">
-          <Image
-            src='/quemSomosJorri.png'
-            alt="Quem Somos"
-            width={30}
-            height={30}
-            className="object-contain"
-          /></Link>
+        <MenuIcon/>
       </div>
-      <div className="">
+      <div className={cardo.className}>
         <Link href="/">
-          <Image
-            src="/logoJorri.png"
-            alt="Logo Jorri"
-            width={150}
-            height={150}
-            className="object-contain"
-          />
+          <h1 className="text-5xl font-bold">JORRI</h1>
         </Link>
       </div>
-      <div className="flex gap-4 text-3xl">
+      <div className="flex gap-4 text-3xl justify-center items-center">
         <InputSearch
           placeholder="Pesquise por um produto..."
           name="search"
           type="search"
           
         />
-        <div><Link href='/login'>{hasIconAccount && <BsFillPersonFill />}</Link></div>
-        <div><Link href='/'>{hasIconFav && <MdFavorite/>}</Link></div>
+        <div><Link href='/login'>{hasIconAccount && <IoPersonOutline />}</Link></div>
         <CartIcon/>
       </div>
     </nav>

@@ -1,12 +1,18 @@
 import { useCart } from "@/contexts/CartProvider"
+import { useSideBar } from "@/contexts/SideBarContext";
 
 export const HandlesSideBar = () => {
     const { cartOpen, setCartOpen, cartItems, setCartItems } = useCart()
+    const { sideOpen, setSideOpen } = useSideBar();
 
     const toggleCart = () => {
         setCartOpen(!cartOpen)
     }
 
+    const toggleSideBar = () => {
+        setSideOpen(!sideOpen)  
+    }
+    
     const addToCart = () => {
         const newItems = [...cartItems];
         setCartItems(newItems);
@@ -23,6 +29,9 @@ export const HandlesSideBar = () => {
         setCartItems,
         toggleCart,
         handleCloseCart, 
-        addToCart
+        addToCart,
+        toggleSideBar,
+        sideOpen,
+        setSideOpen
     }
 }

@@ -23,6 +23,7 @@ export function CartProvider({ children }: CartContextProps) {
   const addProduct = (product: ProductType) => {
     const updatedCartItems = [...cartItems, product];
     setCartItems(updatedCartItems);
+    setCartOpen(!cartOpen)
   };
 
   const deleteProduct = (product: ProductType) => {

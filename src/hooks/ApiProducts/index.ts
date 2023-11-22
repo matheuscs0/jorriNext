@@ -1,0 +1,1 @@
+export { GetProducts } from './ApiProducts';

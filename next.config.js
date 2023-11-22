@@ -4,7 +4,7 @@ async rewrites() {
         return [
           {
             source: '/api/:path*',
-            destination: 'http://localhost:3002/api/products',
+            destination: 'http://localhost:3002/api/produtos/id',
           },
         ];
       },

@@ -1,0 +1,1 @@
+export { HandleMenuList } from './MenuList';

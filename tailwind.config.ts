@@ -27,13 +27,16 @@ const config: Config = {
           '100%': {
             width: '300px'
           }
-        }
+        },
       },
       animation: {
-        sideBar: 'sideBar 0.2s ease-in-out'
+        sideBar: 'sideBar 0.3s ease-in-out',
       }
+      
     },
   },
-  plugins: [],
+  plugins: [
+    require('tailwindcss-animated')
+  ],
 }
 export default config

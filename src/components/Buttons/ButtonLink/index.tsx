@@ -1,16 +1,12 @@
 import Link, { LinkProps } from "next/link";
 import { ReactNode } from "react";
-import { usePathname } from "next/navigation";
 
 type ButtonLinkProps = {
   children: ReactNode;
 } & LinkProps;
 
 export const ButtonLink = ({ children, href, ...rest }: ButtonLinkProps) => {
-  const pathname = usePathname();
-  console.log(pathname);
 
-  const isCurrentPath = pathname === href;
   return (
     <>
       <Link
