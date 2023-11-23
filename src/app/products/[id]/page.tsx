@@ -12,10 +12,20 @@ type ProductsPageProps = {
   };
 };
 
-export default function ProductsPage({ params }: ProductsPageProps) {
+export default function ProductsDetailsPage({ params }: ProductsPageProps) {
   const id = params.id;
+  console.log(id)
   const [products, setProducts] = useState<ProductType[] | null>(null);
+  const [selectedImage, setSelectedImage] = useState(null);
   const { addProduct } = useCart();
+
+  const handleImageClick = (imagePath: any) => {
+    setSelectedImage(imagePath);
+  };
+
+  const handlePosterClick = () => {
+    setSelectedImage(null);
+  };
 
   async function getProducts() {
     try {
@@ -35,35 +45,50 @@ export default function ProductsPage({ params }: ProductsPageProps) {
   }, []);
 
   return (
-    <section className="w-full h-full flex justify-center items-center mx-10 ">
+    <section className="w-full h-full flex justify-center items-center mx-10">
       {products !== null &&
         products.map((product: ProductType) => (
           <div key={product.id} className="w-full flex-col">
             <div className="w-full flex justify-center gap-5">
             <div className="w-1/2 flex justify-center gap-10">
               <div className="flex flex-col gap-2">
-                <ImageAbout
-                  src={`http://localhost:3002${product.image_about_1}`}
-                />
-                <ImageAbout
-                  src={`http://localhost:3002${product.image_about_2}`}
-                />
+              {product.image_about_1 && (
+                  <ImageAbout
+                    src={`http://localhost:3002${product.image_about_1}`}
+                    onClick={() => handleImageClick(product.image_about_1)}
+                  />
+                )}
+                {product.image_about_2 && (
+                  <ImageAbout
+                    src={`http://localhost:3002${product.image_about_2}`}
+                    onClick={() => handleImageClick(product.image_about_2)}
+                  />
+                )}
                 {product.image_about_3 && (
                   <ImageAbout
                     src={`http://localhost:3002${product.image_about_3}`}
+                    onClick={() => handleImageClick(product.image_about_3)}
                   />
                 )}
                 {product.image_about_4 && (
                   <ImageAbout
                     src={`http://localhost:3002${product.image_about_4}`}
+                    onClick={() => handleImageClick(product.image_about_4)}
+                  />
+                )}
+                {selectedImage && (
+                  <ImageAbout
+                    src={`http://localhost:3002${product.poster_path}`}
+                    onClick={() => handleImageClick(product.poster_path)}
                   />
                 )}
               </div>
               <img
-                src={`http://localhost:3002${product.poster_path}`}
-                alt={product.name}
-                className="w-[600px] h-[600px] cursor-pointer object-cover"
-              />
+                  src={`http://localhost:3002${selectedImage || product.poster_path}`}
+                  alt={product.name}
+                  className="w-[600px] h-[600px] cursor-pointer object-cover"
+                  onClick={handlePosterClick}
+                />
             </div>
             <div className="w-[500px] flex-col text-left mr-28">
               <div className="flex flex-col gap-1 mb-10">
@@ -102,12 +127,14 @@ export default function ProductsPage({ params }: ProductsPageProps) {
             </div>
 
             {/* Descrição do Produto */}
-            <div className="flex flex-col w-full h-full mt-10">
+            <div className="flex flex-col w-full h-full mt-10 items-center">
               <div className="flex flex-col mt-10 gap-2">
                 {product.description.map((item, index) => (
                   <div key={index}>
                     {typeof item === "string" ? (
-                      <p className="text-lg font-bold">{item}</p>
+                      <p className="text-lg font-bold">
+                        {item}
+                      </p>
                     ) : (
                       <>
                         <ul className="text-left">

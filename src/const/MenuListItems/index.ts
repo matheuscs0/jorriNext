@@ -1,22 +1,28 @@
 export const MenuData = {
     Categorias: [
         {
-            text: 'Correntes'
+            text: 'Correntes',
+            href: '/categoria/correntes'
         },
         {
-            text: 'Colares'
+            text: 'Colares',
+            href: '/categoria/colares'
         },
         {
-            text: 'Pulseiras'
+            text: 'Pulseiras',
+            href: '/categoria/pulseiras'
         },
         {
-            text: 'Brincos'
+            text: 'Brincos',
+            href: '/categoria/brincos'
         },
         {
-            text: 'Pingentes'
+            text: 'Pingentes',
+            href: '/categoria/pingentes'
         },
         {
-            text: 'Mais vendidos'
+            text: 'Mais vendidos',
+            href: '/categoria/mais-vendidos'
         },
     ],
     MenuList: [
