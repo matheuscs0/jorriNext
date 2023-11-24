@@ -1,18 +1,8 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
-import { CartProvider } from "@/contexts/CartProvider";
 import { NavBar } from "@/components/NavBar";
-import { SideProvider } from "@/contexts/SideBarContext";
-import {register} from 'swiper/element/bundle'
-register()
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
-import 'swiper/css/scrollbar';
-import { SearchProvider } from "@/contexts/SearchContext";
-import { SizeProvider } from '@/contexts/SizeContext';
-import AuthContextProvider from '@/contexts/userContext'
+import Provider from "@/contexts/Provider";
 
 const montserrat = Montserrat({
   weight: ["300", "700"],
@@ -33,11 +23,7 @@ export default function RootLayout({
   return (
     <html lang="pt-br" className={montserrat.className}>
       <body className="w-screen h-screen flex-col m-0 p-0 bg-white">
-        <CartProvider>
-          <SideProvider>
-            <SearchProvider>
-              <SizeProvider>
-                <AuthContextProvider>
+       <Provider>
                 <header>
                   <NavBar hasIconAccount={true} hasIconCart={true} />
                 </header>
@@ -46,11 +32,7 @@ export default function RootLayout({
                     {children}
                   </section>
                 </div>
-                </AuthContextProvider>
-              </SizeProvider>
-            </SearchProvider>
-          </SideProvider>
-        </CartProvider>
+          </Provider>
       </body>
     </html>
   );
