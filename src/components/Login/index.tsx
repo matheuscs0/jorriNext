@@ -5,6 +5,7 @@ import { Button } from "../Buttons/DefaultButton";
 import { useState } from "react";
 import { ButtonLink } from "../Buttons/ButtonLink";
 import { Sign } from "./sign";
+import {signIn, useSession} from 'next-auth/react'
 
 
 export const Login = () => {
@@ -23,6 +24,7 @@ export const Login = () => {
                   hasIconGoogle={true}
                   hasIconFacebook={false}
                   span="Continue com o Google"
+                  onClick={() => signIn('google')}
                 />
                  <ButtonSociais
                   hasIconGoogle={false}
