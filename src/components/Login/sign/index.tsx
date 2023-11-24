@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { Input } from "@/components/Input";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ButtonLink } from "../../Buttons/ButtonLink/index";
 import { ButtonSociais } from "@/components/Buttons/ButtonSociais";
 import { IoIosArrowBack } from "react-icons/io";
@@ -8,6 +8,8 @@ import { Login } from "../index";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useAuth } from './../../../contexts/userContext/index';
+import { auth, entrarWithGoogle } from '@/utils/firebase/authentication';
 
 const schema = z.object({
   name: z.string().min(3, { message: "Insira um nome válido" }),
@@ -29,6 +31,21 @@ export const Sign = () => {
   });
   console.log(errors);
   const [Sign, setSign] = useState(true);
+  const {user, setUser} = useAuth()
+
+  useEffect(()=>{
+    auth.onAuthStateChanged(user =>{
+      if(user){
+        const {uid, displayName, email, photoURL} = user
+        setUser({
+          id: uid,
+          photo: photoURL,
+          name:displayName,
+          email: email
+        })
+      }
+      })
+  },[])
 
   return (
     <>
@@ -52,6 +69,7 @@ export const Sign = () => {
             <div className="w-full flex flex-col justify-center items-center gap-3">
               <ButtonSociais
                 hasIconGoogle={true}
+                onClick={() => entrarWithGoogle()}
                 hasIconFacebook={false}
                 span="Se inscreva com o Google"
               />

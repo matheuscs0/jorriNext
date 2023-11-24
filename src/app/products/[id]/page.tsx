@@ -5,6 +5,7 @@ import { ImageAbout } from "@/components/ImageAbout";
 import { Button } from "@/components/Buttons/DefaultButton";
 import { useCart } from "@/contexts/CartProvider";
 import { formatPrice, installmentPrice } from "@/hooks/formatPrice/formatPrice";
+import { useSize } from "@/contexts/SizeContext";
 
 type ProductsPageProps = {
   params: {
@@ -12,12 +13,29 @@ type ProductsPageProps = {
   };
 };
 
+export type SizeType = {
+  size: string;
+  price: number;
+};
+
 export default function ProductsDetailsPage({ params }: ProductsPageProps) {
   const id = params.id;
-  console.log(id)
   const [products, setProducts] = useState<ProductType[] | null>(null);
   const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedSize, setSelectedSize] = useState<SizeType | null>(null);
   const { addProduct } = useCart();
+  const { setContextSize } = useSize();
+
+  const handleSizeClick = (size: SizeType) => {
+    setSelectedSize(size);
+    setContextSize(size);
+    setProducts((prevProducts) =>
+      (prevProducts as ProductType[]).map((product) => ({
+      ...product,
+      price: size.price,
+    }))
+    );
+  };
 
   const handleImageClick = (imagePath: any) => {
     setSelectedImage(imagePath);
@@ -95,30 +113,33 @@ export default function ProductsDetailsPage({ params }: ProductsPageProps) {
                 <h1 className="font-bold text-4xl">{product.name}</h1>
                 <p className="text-md text-left">cod: {product.id}</p>
               </div>
-                <div className="flex flex-col mt-10 gap-1">
-                <h1 className="text-4xl font-bold">{formatPrice(product.price)}</h1>
-                <h1 className="text-xl">3x de {installmentPrice(product.price)} sem juros</h1>
+              <div className="flex flex-col mt-10 gap-1">
+                <h1 className="text-4xl font-bold">{formatPrice(selectedSize ? selectedSize.price : product.price)}</h1>
+                <h1 className="text-xl">3x de {installmentPrice(selectedSize ? selectedSize.price : product.price)} sem juros</h1>
               </div>
               <div className="flex flex-col mt-10">
-                <h1 className="font-bold text-lg">Tamanhos:</h1>
+                <h1 className="font-bold text-lg">Selecione um tamanho:</h1>
                 <div className="flex mt-3">
-                  <ul className="flex gap-3">
-                    {product.sizes.map((size) => (
-                      <li
-                        key={size.size}
-                        className="bg-black/10 text-black p-4 rounded-md cursor-pointer transition-all hover:shadow-md duration-300 hover:shadow-black/20"
-                      >
-                        <span className="text-md">{size.size}</span>
-                      </li>
-                    ))}
-                  </ul>
+                <ul className="flex gap-3">
+                  {product.sizes.map((size) => (
+                    <li
+                      key={size.size}
+                      className={`bg-black/10 text-black p-4 rounded-md cursor-pointer transition-all hover:shadow-md duration-300 hover:shadow-black/20 ${
+                        size.size === selectedSize?.size ? "bg-black/100 text-white" : ""
+                      }`}
+                      onClick={() => handleSizeClick(size)}
+                    >
+                      <span className="text-md">{size.size}</span>
+                    </li>
+                  ))}
+                </ul>
                 </div>
               </div>
               <div className="w-80 mt-5">
                 <Button
                   bg="bg-black"
                   colorText="text-white"
-                  onClick={() => addProduct(product)}
+                  onClick={()=> addProduct(product)}
                 >
                   Adicionar ao Carrinho
                 </Button>

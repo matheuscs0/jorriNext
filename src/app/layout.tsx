@@ -11,6 +11,8 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import { SearchProvider } from "@/contexts/SearchContext";
+import { SizeProvider } from '@/contexts/SizeContext';
+import AuthContextProvider from '@/contexts/userContext'
 
 const montserrat = Montserrat({
   weight: ["300", "700"],
@@ -33,15 +35,19 @@ export default function RootLayout({
       <body className="w-screen h-screen flex-col m-0 p-0 bg-white">
         <CartProvider>
           <SideProvider>
-          <SearchProvider>
-            <header>
-              <NavBar hasIconAccount={true} hasIconCart={true} />
-            </header>
-            <div className="w-full h-full flex justify-center mt-10">
-              <section className="w-full h-full flex mx-6 my-10">
-                {children}
-              </section>
-            </div>
+            <SearchProvider>
+              <SizeProvider>
+                <AuthContextProvider>
+                <header>
+                  <NavBar hasIconAccount={true} hasIconCart={true} />
+                </header>
+                <div className="w-full h-full flex justify-center mt-10">
+                  <section className="w-full h-full flex mx-6 my-10">
+                    {children}
+                  </section>
+                </div>
+                </AuthContextProvider>
+              </SizeProvider>
             </SearchProvider>
           </SideProvider>
         </CartProvider>

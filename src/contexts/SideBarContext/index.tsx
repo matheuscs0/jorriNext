@@ -10,9 +10,10 @@ const SideContext = createContext<SideBarContextType>({} as SideBarContextType);
 
 export function SideProvider({children}: SideContextProps) {
     const [sideOpen, setSideOpen] = useState(false)
+    const [sideSearchOpen, setSideSearchOpen] = useState(false)
 
     return(
-        <SideContext.Provider value={{sideOpen, setSideOpen}}>
+        <SideContext.Provider value={{sideOpen, setSideOpen, sideSearchOpen, setSideSearchOpen}}>
             {children}
         </SideContext.Provider>
     )

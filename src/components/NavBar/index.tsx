@@ -6,9 +6,7 @@ import { NavBarProps } from "@/types/NavBarProps";
 import { CartIcon } from '../CartIcon/index';
 import { Cardo } from "next/font/google";
 import { MenuIcon } from "../Menu/MenuIcon";
-import { useSearch } from "@/contexts/SearchContext";
-import axios from 'axios'
-import { useRouter } from "next/navigation";
+import { InputSearchIcon } from "../InputSearch/InputSearchIcon";
 
 const cardo = Cardo({
   weight: ["400", "700"],
@@ -17,23 +15,12 @@ const cardo = Cardo({
 });
 
 const NavBar = ({ hasIconAccount }: NavBarProps) => {
-  const {push} = useRouter()
-  const { searchTerm, setSearchTerm, setSearchResults } = useSearch();
-
-  const handleSearch = async () => {
-    try {
-      const response = await axios.get(`http://localhost:3002/api/search?q=${searchTerm}`);
-      setSearchResults(response.data);
-      push(`/search/`);
-    } catch (error) {
-      console.error('Erro na pesquisa:', error);
-    }
-  };
 
   return (
     <nav className="w-full h-24 flex justify-around items-center bg-white text-black top-0 shadow-md fixed z-30">
-      <div className="">
+      <div className="flex gap-2">
         <MenuIcon/>
+        <div className="flex sm:hidden"><InputSearchIcon/></div>
       </div>
       <div className={cardo.className}>
         <Link href="/">
@@ -41,16 +28,7 @@ const NavBar = ({ hasIconAccount }: NavBarProps) => {
         </Link>
       </div>
       <div className="flex gap-4 text-3xl justify-center items-center">
-        <InputSearch
-          placeholder="Pesquise por um produto..."
-          name="search"
-          type="search"
-          value={searchTerm}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-            setSearchTerm(e.target.value);
-            handleSearch();
-          }}
-        />
+      <div className="hidden sm:flex"><InputSearchIcon/></div>
         <div><Link href='/login'>{hasIconAccount && <IoPersonOutline />}</Link></div>
         <CartIcon/>
       </div>

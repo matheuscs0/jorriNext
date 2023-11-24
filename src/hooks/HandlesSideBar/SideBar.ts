@@ -3,7 +3,7 @@ import { useSideBar } from "@/contexts/SideBarContext";
 
 export const HandlesSideBar = () => {
     const { cartOpen, setCartOpen, cartItems, setCartItems } = useCart()
-    const { sideOpen, setSideOpen } = useSideBar();
+    const { sideOpen, setSideOpen, setSideSearchOpen, sideSearchOpen } = useSideBar();
 
     const toggleCart = () => {
         setCartOpen(!cartOpen)
@@ -11,6 +11,10 @@ export const HandlesSideBar = () => {
 
     const toggleSideBar = () => {
         setSideOpen(!sideOpen)  
+    }
+
+    const toggleSideSearch = () => {
+        setSideSearchOpen(!sideSearchOpen)  
     }
     
     const addToCart = () => {
@@ -32,6 +36,9 @@ export const HandlesSideBar = () => {
         addToCart,
         toggleSideBar,
         sideOpen,
-        setSideOpen
+        setSideOpen,
+        sideSearchOpen,
+        setSideSearchOpen,
+        toggleSideSearch
     }
 }

@@ -1,5 +1,4 @@
-import { useSearch } from "@/contexts/SearchContext";
-import axios from "axios";
+
 import { ChangeEvent, HTMLAttributes } from "react";
 import { CiSearch } from "react-icons/ci";
 
@@ -9,7 +8,8 @@ type InputProps = HTMLAttributes<HTMLInputElement> & {
   type: string;
   hasIconSearch?: boolean;
   value: string;
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void;  // Corrija o tipo para ChangeEvent<HTMLInputElement>
+  onClick: () => void
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 };
 
 const InputSearch = (props: InputProps) => {
@@ -18,9 +18,9 @@ const InputSearch = (props: InputProps) => {
     <div className="relative">
       <input
         {...props}
-        className="text-xs peer cursor-pointer relative z-10 h-8 w-8 rounded-full border bg-transparent pl-8 outline-none focus:w-[250px] focus:cursor-text focus:border-zinc-300 transition-all"
+        className="text-sm peer relative h-10 w-[350px] border-b pl-4 outline-none sm:w-[650px]"
       />
-      <label className="absolute top-2.5 left-[2.8px]"><CiSearch size={25}/></label>
+      <button className="absolute top-2.5 right-2 hover:scale-150 transition-all duration-300" onClick={props.onClick}><CiSearch size={25}/></button>
     </div>
   );
 };
