@@ -5,7 +5,7 @@ import { ButtonLink } from "../../Buttons/ButtonLink/index";
 import { ButtonSociais } from "@/components/Buttons/ButtonSociais";
 import { IoIosArrowBack } from "react-icons/io";
 import { Login } from "../index";
-import {signIn, useSession} from 'next-auth/react'
+import { useSession } from "next-auth/react";
 
 export const Sign = () => {
   const [Sign, setSign] = useState(true);
@@ -15,7 +15,7 @@ export const Sign = () => {
   return (
     <>
       {Sign ? (
-        <form className="w-[400px] h-[750px] flex flex-col bg-neutral-950 p-10 rounded-lg shadow-2xl">
+        <div className="w-[400px] h-[750px] flex flex-col bg-neutral-950 p-10 rounded-lg shadow-2xl">
           <div className="w-full h-full flex flex-col">
             <div className="w-full flex justify-start items-start">
               <IoIosArrowBack
@@ -32,20 +32,10 @@ export const Sign = () => {
               />
             </div>
             <div className="w-full flex flex-col justify-center items-center gap-3">
-              <ButtonSociais
-                hasIconGoogle={true}
-                onClick={() => signIn('google')}
-                hasIconFacebook={false}
-                span="Se inscreva com o Google"
-              />
-              <ButtonSociais
-                hasIconGoogle={false}
-                hasIconFacebook={true}
-                span="Se inscreva com o Facebook"
-              />
+              <ButtonSociais>Continue com o Google</ButtonSociais>
             </div>
             <div className="w-full mt-5 h-[1.5px] bg-neutral-900"></div>
-            <div className="w-full h-full flex flex-col my-1 gap-3">
+            <div className="w-full h-full flex flex-col my-1 gap-3 text-white">
               <Input
                 type="name" 
                 placeholder="Insira seu nome completo"
@@ -64,7 +54,7 @@ export const Sign = () => {
               <ButtonLink href="/">Inscrever-se</ButtonLink>
             </div>
           </div>
-        </form>
+        </div>
       ) : (
         <Login />
       )}

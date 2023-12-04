@@ -9,7 +9,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
   ({ type = "", name = "", ...props }, ref) => {
     return (
       <div>
-      <label className="block text-sm font-medium text-white">
+      <label className="block text-sm font-medium ">
         {props.label}
       </label>
       <input

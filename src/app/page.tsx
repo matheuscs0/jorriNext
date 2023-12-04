@@ -1,13 +1,13 @@
 "use client"
-import {Swiper, SwiperSlide} from 'swiper/react';
-import { HomeImages } from '@/const/HomeImages';
 import { GetProducts } from '@/hooks/ApiProducts';
 import { useEffect, useState } from 'react';
 import { Loading } from '@/components/Loading';
 import { ProductCard } from '@/components/ProductCard';
 import { DivAboutOne } from '@/components/DivAboutOne';
+import { useSession } from 'next-auth/react';
 
 export default function Home() {
+  
   const {products} = GetProducts()
   const [loading, setLoading] = useState(true);
 
@@ -25,8 +25,8 @@ export default function Home() {
           <div className='w-full h-screen justify-center flex '><Loading/></div>
         ): (
           <ProductCard/>
-        )}
-        </section>
+        )} 
+       </section>
     </div>
   );
 }

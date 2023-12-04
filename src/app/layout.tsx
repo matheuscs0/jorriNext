@@ -3,6 +3,10 @@ import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import { NavBar } from "@/components/NavBar";
 import Provider from "@/contexts/Provider";
+import { CartProvider } from "@/contexts/CartProvider";
+import { SideProvider } from "@/contexts/SideBarContext";
+import { SearchProvider } from "@/contexts/SearchContext";
+import { SizeProvider } from "@/contexts/SizeContext";
 
 const montserrat = Montserrat({
   weight: ["300", "700"],

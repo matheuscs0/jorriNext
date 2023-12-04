@@ -3,12 +3,13 @@ import { useCart } from "@/contexts/CartProvider";
 import { ProductType } from "@/types/ProductsType";
 import {FaTrashAlt} from 'react-icons/fa'
 
+
 export const CardCart = () => {
   const {cartItems, deleteProduct} = useCart()
 
   return (
     <div className="w-full flex flex-col justify-center items-center mt-5 gap-10 text-black">
-      {cartItems.map((product:ProductType,) => (
+      {cartItems.map((product:ProductType) => (
         <div
           className="w-full h-[100px] flex justify-around items-center p-2"
           key={product.id}

@@ -1,7 +1,6 @@
-"use client"
+'use client'
 import { ReactNode, createContext, useContext, useEffect, useState } from 'react';
 import { ProductType } from '@/types/ProductsType';
-import Cookies from 'js-cookie';
 
 interface CartContextProps {
   children: ReactNode;
@@ -14,6 +13,7 @@ interface CartContextType {
   setCartItems: (items: ProductType[]) => void;
   addProduct: (product: ProductType) => void;
   deleteProduct: (product: ProductType) => void;
+  totalAmount: number; 
 }
 
 const CartContext = createContext<CartContextType>({} as CartContextType);
@@ -21,9 +21,20 @@ const CartContext = createContext<CartContextType>({} as CartContextType);
 export function CartProvider({ children }: CartContextProps) {
   const [cartOpen, setCartOpen] = useState(false);
   const [cartItems, setCartItems] = useState<ProductType[]>([])
+  const [totalAmount, setTotalAmount] = useState(0);
+
+  useEffect(() => {
+    const calculateTotalAmount = () => {
+      const total = cartItems.reduce((total, product) => total + product.price, 0);
+      setTotalAmount(total);
+    };
+
+    calculateTotalAmount();
+  }, [cartItems]);
     
   const addProduct = (product: ProductType) => {
     const updatedCartItems = [...cartItems, product];
+  
     setCartItems(updatedCartItems);
     setCartOpen(!cartOpen);
 
@@ -36,7 +47,7 @@ export function CartProvider({ children }: CartContextProps) {
 
 
   return (
-    <CartContext.Provider value={{ cartOpen, setCartOpen, cartItems, setCartItems, addProduct, deleteProduct }}>
+    <CartContext.Provider value={{ cartOpen, setCartOpen, cartItems, setCartItems, addProduct, deleteProduct, totalAmount  }}>
       {children}
     </CartContext.Provider>
   );
