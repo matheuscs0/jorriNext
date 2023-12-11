@@ -6,14 +6,18 @@ import { useCardFormContext } from "@/contexts/CardFormContext";
 
 export default function PaymentPage() {
     return(
-        <section className="w-full m-10 flex justify-around items-start">
-            <div className="flex flex-col gap-10 w-1/2 justify-center">
-                <SearchCep/>
-                <PaymentMethods/>
+        <div className={`w-full flex justify-around items-center ${window.innerWidth < 650 ? 'flex-col mt-[1000px]' : ''}`}>
+            <div className={`gap-2 flex-col justify-center`}>
+                <div className="w-full flex justify-center mb-5">
+                    <SearchCep/>
+                </div>
+                <div  className="w-full flex justify-center mb-5">
+                    <PaymentMethods/>
+                </div>
             </div>
-            <div className="w-1/2 flex justify-center">
+            <div className={`flex justify-center`}>
                 <PaymentOrder/>
             </div>
-        </section>
+        </div>
     )
 }

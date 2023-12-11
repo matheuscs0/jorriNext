@@ -1,7 +1,11 @@
 import {AiOutlineLoading} from 'react-icons/ai'
 
-export const Loading = () => {
+type IconLoading = {
+    size: number
+}
+
+export const Loading = ({size}: IconLoading) => {
     return(
-            <AiOutlineLoading className='animate-spin ' size={50}/>
+            <AiOutlineLoading className='animate-spin ' size={size}/>
     )
 }

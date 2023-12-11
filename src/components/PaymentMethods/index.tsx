@@ -44,7 +44,7 @@ export const PaymentMethods = () => {
         e.preventDefault();
         handleSubmit();
       }}
-      className={`w-[750px] ${open ? "" : "h-28"} flex flex-col bg-zinc-100 rounded-md shadow-md duration-500 transition-all`}
+      className={`${window.innerWidth < 650 ? 'w-[400px]' : 'w-[750px]'}  ${open ? "" : "h-28"} flex flex-col bg-zinc-100 rounded-md shadow-md duration-500 transition-all`}
     >
       <div className="w-full border-b p-3">
         <h1 className=" font-bold text-xl">Método de pagamento</h1>

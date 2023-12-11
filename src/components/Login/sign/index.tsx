@@ -15,7 +15,7 @@ export const Sign = () => {
   return (
     <>
       {Sign ? (
-        <div className="w-[400px] h-[750px] flex flex-col bg-neutral-950 p-10 rounded-lg shadow-2xl">
+        <div className="w-[400px] h-[250px] flex flex-col bg-neutral-950 p-10 rounded-lg shadow-2xl">
           <div className="w-full h-full flex flex-col">
             <div className="w-full flex justify-start items-start">
               <IoIosArrowBack
@@ -32,27 +32,9 @@ export const Sign = () => {
               />
             </div>
             <div className="w-full flex flex-col justify-center items-center gap-3">
-              <ButtonSociais>Continue com o Google</ButtonSociais>
+              <ButtonSociais>Se inscreva com o Google</ButtonSociais>
             </div>
             <div className="w-full mt-5 h-[1.5px] bg-neutral-900"></div>
-            <div className="w-full h-full flex flex-col my-1 gap-3 text-white">
-              <Input
-                type="name" 
-                placeholder="Insira seu nome completo"
-                label="Nome"
-              />
-              <Input
-                type="text"
-                placeholder="Insira seu email"
-                label="Email"
-              />
-              <Input
-                type="password"
-                placeholder="Insira sua senha"
-                label="Senha"
-              />
-              <ButtonLink href="/">Inscrever-se</ButtonLink>
-            </div>
           </div>
         </div>
       ) : (

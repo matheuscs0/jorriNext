@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react';
 import { Loading } from '@/components/Loading';
 import { ProductCard } from '@/components/ProductCard';
 import { DivAboutOne } from '@/components/DivAboutOne';
-import { useSession } from 'next-auth/react';
 
 export default function Home() {
   
@@ -22,7 +21,7 @@ export default function Home() {
           <nav className="w-full flex"><DivAboutOne/></nav>
         <section className='flex flex-wrap justify-center items-center gap-5 p-10'>
         {loading ? (
-          <div className='w-full h-screen justify-center flex '><Loading/></div>
+          <div className='w-full h-screen justify-center flex '><Loading size={50}/></div>
         ): (
           <ProductCard/>
         )} 

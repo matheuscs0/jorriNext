@@ -6,7 +6,7 @@ import { usePaymentContext } from "@/contexts/PaymentMethodContext";
 
 export const PaymentOrder = () => {
 
-    const {cartItems, deleteProduct, totalAmount} = useCart()
+    const {cartItems, deleteProduct, totalAmount, frete, SubTotalAmount, discount} = useCart()
     const {PaymentCardCredit, PaymentPixCredit, PaymentBoletoCredit} = PaymentMethodsOrder()
     const { selectedMethod } = usePaymentContext();
 
@@ -29,7 +29,7 @@ export const PaymentOrder = () => {
 
     return(
         <>
-            <div className="w-[470px] h-[635px] flex flex-col bg-zinc-100 rounded-md shadow-md">
+            <div className={`${window.innerWidth < 650 ? 'w-[400px]' : 'w-[470px]'} h-[635px] flex flex-col bg-zinc-100 rounded-md shadow-md`}>
                 <div className="w-full p-3 border-b"><h1 className="font-bold text-xl">Produtos</h1></div>
                 <div className="overflow-y-scroll w-full h-80 p-3 border-b">
                 {cartItems.map((product) => (
@@ -64,9 +64,9 @@ export const PaymentOrder = () => {
                             <p>Entrega</p>
                         </div>
                         <div className="flex flex-col gap-3">
-                            <p className="font-bold">{formatPrice(totalAmount)}</p>
-                            <p className="font-bold">R$0,00</p>
-                            <p className="font-bold">R$0,00</p>
+                            <p className="font-bold">{formatPrice(SubTotalAmount)}</p>
+                            <p className="font-bold">{discount}%</p>
+                            <p className="font-bold">{formatPrice(frete)}</p>
                         </div>
                     </div>
                 </div>

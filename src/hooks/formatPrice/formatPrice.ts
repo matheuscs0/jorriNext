@@ -16,4 +16,19 @@ export const installmentPrice = (price: number | null) => {
   }).format(price / 3);
 }
 
+export function formatDate(dateString: string) {
+  const options: Intl.DateTimeFormatOptions = {
+    year: 'numeric',
+    month: 'numeric',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
+    second: 'numeric',
+    timeZoneName: 'short',
+  };
+
+  const formattedDate = new Date(dateString).toLocaleDateString('pt-BR', options);
+  return formattedDate;
+}
+
 

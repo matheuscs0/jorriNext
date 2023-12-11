@@ -63,12 +63,12 @@ export default function ProductsDetailsPage({ params }: ProductsPageProps) {
   }, []);
 
   return (
-    <section className="w-full h-full flex justify-center items-center mx-10">
+    <section className="w-full h-full flex justify-center mt-20 ">
       {products !== null &&
         products.map((product: ProductType) => (
-          <div key={product.id} className="w-full flex-col">
-            <div className="w-full flex justify-center gap-5">
-            <div className="w-1/2 flex justify-center gap-10">
+          <div key={product.id} className="w-full">
+            <div className={`w-full ${window.innerWidth < 1280 ? 'flex-col' : 'justify-center'} gap-5 flex`}>
+            <div className={`flex justify-center gap-10 ${window.innerWidth < 1280 ? 'gap-2 ' : ''}`}>
               <div className="flex flex-col gap-2">
               {product.image_about_1 && (
                   <ImageAbout
@@ -94,6 +94,12 @@ export default function ProductsDetailsPage({ params }: ProductsPageProps) {
                     onClick={() => handleImageClick(product.image_about_4)}
                   />
                 )}
+                {product.size_info && (
+                  <ImageAbout
+                    src={`http://localhost:3002${product.size_info}`}
+                    onClick={() => handleImageClick(product.size_info)}
+                  />
+                )}
                 {selectedImage && (
                   <ImageAbout
                     src={`http://localhost:3002${product.poster_path}`}
@@ -104,20 +110,20 @@ export default function ProductsDetailsPage({ params }: ProductsPageProps) {
               <img
                   src={`http://localhost:3002${selectedImage || product.poster_path}`}
                   alt={product.name}
-                  className="w-[600px] h-[600px] cursor-pointer object-cover"
+                  className="w-[300px] h-[300px] mr-0 cursor-pointer object-cover sm:w-[600px] sm:h-[600px]"
                   onClick={handlePosterClick}
                 />
             </div>
-            <div className="w-[500px] flex-col text-left mr-28">
+            <div className={`w-[500px] flex-col text-left mr-28 ${window.innerWidth < 1280 ? 'justify-center items-center mr-0 text-center w-full' : ''}`}>
               <div className="flex flex-col gap-1 mb-10">
                 <h1 className="font-bold text-4xl">{product.name}</h1>
-                <p className="text-md text-left">cod: {product.id}</p>
+                <p className={`text-md text-left ${window.innerWidth < 1280 ? 'justify-center items-center mr-0 text-center w-full' : ''}`}>cod: {product.id}</p>
               </div>
               <div className="flex flex-col mt-10 gap-1">
                 <h1 className="text-4xl font-bold">{formatPrice(selectedSize ? selectedSize.price : product.price)}</h1>
                 <h1 className="text-xl">3x de {installmentPrice(selectedSize ? selectedSize.price : product.price)} sem juros</h1>
               </div>
-              <div className="flex flex-col mt-10">
+              <div className={`flex flex-col mt-10 ${window.innerWidth < 1280 ? 'justify-center items-center mr-0 text-center w-full' : ''}`}>
                 <h1 className="font-bold text-lg">Selecione um tamanho:</h1>
                 <div className="flex mt-3">
                 <ul className="flex gap-3">
@@ -135,7 +141,7 @@ export default function ProductsDetailsPage({ params }: ProductsPageProps) {
                 </ul>
                 </div>
               </div>
-              <div className="w-80 mt-5">
+              <div className={`w-80 mt-5 ${window.innerWidth < 1280 ? 'justify-center items-center mr-0 text-center w-full' : ''}`}>
                 <Button
                   bg="bg-black"
                   colorText="text-white"
@@ -144,32 +150,28 @@ export default function ProductsDetailsPage({ params }: ProductsPageProps) {
                   Adicionar ao Carrinho
                 </Button>
               </div>
-            </div>
-            </div>
-
-            {/* Descrição do Produto */}
-            <div className="flex flex-col w-full h-full mt-10 items-center">
-              <div className="flex flex-col mt-10 gap-2">
+              <div className={`flex flex-col mt-10 gap-2 ${window.innerWidth < 1280 ? 'justify-center items-center mr-0 text-center w-full' : ''}`}>
                 {product.description.map((item, index) => (
                   <div key={index}>
                     {typeof item === "string" ? (
                       <p className="text-lg font-bold">
                         {item}
-                      </p>
-                    ) : (
-                      <>
-                        <ul className="text-left">
-                          <li>{item.espessura && <p className="text-md text-left origin-left">Espessura: {item.espessura}</p>}</li>
-                          {item.comprimento && <p>Comprimento: {item.comprimento}</p>}
-                          {item.pingente && <p>Pingente: {item.pingente}</p>}
-                        </ul>
-                      </>
-                    )}
-                  </div>
-                ))}
+                        </p>
+                      ) : (
+                        <>
+                          <ul className="text-left">
+                            <li>{item.espessura && <p className="text-md text-left origin-left">Espessura: {item.espessura}</p>}</li>
+                            {item.comprimento && <p>Comprimento: {item.comprimento}</p>}
+                            {item.pingente && <p>Pingente: {item.pingente}</p>}
+                          </ul>
+                        </>
+                      )}
+                    </div>
+                   ))}
+                </div>
               </div>
             </div>
-          </div>
+            </div>
         ))}
     </section>
   );

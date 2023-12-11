@@ -1,5 +1,5 @@
 'use client'
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { Input } from "../Input"
 import { CiSearch } from "react-icons/ci";
 import axios from "axios";
@@ -19,7 +19,6 @@ export const SearchCep = () => {
       try {
         const response = await axios.get(`https://viacep.com.br/ws/${cepFormData.cep}/json/`);
         const { data } = response;
-  
         setCepFormData((prevData) => ({
           ...prevData,
           address: data.logradouro,
@@ -36,13 +35,13 @@ export const SearchCep = () => {
       console.log(cepFormData);
     };
     return(
-        <form onSubmit={handleSubmit} className={`w-[750px] ${open ? 'h-[300px]' : 'h-28'} flex flex-col bg-zinc-100 rounded-md shadow-md duration-500 transition-all`}>
+        <form onSubmit={handleSubmit} className={`${window.innerWidth < 650 ? 'w-[400px]' : 'w-[750px]'} ${open ? '' : 'h-28'} flex flex-col bg-zinc-100 rounded-md shadow-md duration-500 transition-all`}>
             <div className="w-full border-b p-3">
                 <h1 className=" font-bold text-xl">Endereço para envio</h1>
             </div>
             <div className={`${open ? 'flex' : 'hidden'}`}>
             <div className="flex flex-wrap w-full justify-center items-center gap-5 p-3">
-                <div className="flex  gap-2">
+                <div className="flex gap-2">
                 <Input
                     label="CEP"
                     placeholder="CEP"

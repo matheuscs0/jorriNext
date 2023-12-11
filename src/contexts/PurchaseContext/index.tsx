@@ -33,7 +33,8 @@ export const PurchaseProvider: React.FC<PurchaseProviderProps> = ({ children }) 
   const [purchaseData, setPurchaseData] = useState<Purchase | null>(null);
 
   const setPurchase: PurchaseContextProps['setPurchase'] = (data) => {
-    setPurchaseData(data);
+      setPurchaseData(data);
+
   };
 
   const value: PurchaseContextProps = { purchaseData, setPurchase };

@@ -14,7 +14,7 @@ export default function ProfilePage(){
     
       return (
         <div className="w-full h-screen flex-col">
-          <div className="w-full flex justify-center h-full mt-10">
+          <div className="w-full flex justify-center h-full mt-36">
             <Login />
           </div>
         </div>

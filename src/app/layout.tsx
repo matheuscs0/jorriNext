@@ -28,7 +28,7 @@ export default function RootLayout({
     <html lang="pt-br" className={montserrat.className}>
       <body className="w-screen h-screen flex-col m-0 p-0 bg-white">
        <Provider>
-                <header>
+                <header className="mb-10">
                   <NavBar hasIconAccount={true} hasIconCart={true} />
                 </header>
                 <div className="w-full h-full flex justify-center mt-10">
