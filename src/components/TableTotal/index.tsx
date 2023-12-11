@@ -4,9 +4,12 @@ import { ButtonLink } from "../Buttons/ButtonLink";
 import { ShippingFrete } from "../shippingFrete";
 import { useEffect, useState } from "react";
 import { Loading } from "../Loading";
+import { useRouter } from "next/navigation";
+import { Button } from "../Buttons/DefaultButton";
 
 export const TableTotal = () => {
     const { totalAmount, SubTotalAmount, frete } = useCart();
+    const {push} = useRouter()
 
     const [loading, setLoading] = useState(true);
 
@@ -15,6 +18,14 @@ export const TableTotal = () => {
       setLoading(false);
     }
   }, [frete]);
+
+  const handleSubmit = () => {
+    if (frete) {
+      push('/purchase/paymen')
+    } else{
+        alert('Escreva um CEP válido')
+    }
+  }
 
     return(
         <div className="w-[400px] flex flex-col bg-zinc-100 h-[450px] rounded-md shadow-md">
@@ -35,7 +46,7 @@ export const TableTotal = () => {
                 <ShippingFrete/>
             </div>
             <div className="mx-5 mt-5 gap-2">
-                <div className="mb-2"><ButtonLink href='/purchase/payment'>Finalizar compra</ButtonLink></div>
+                <div className="mb-2"><Button bg="bg-black" colorText="text-white" onClick={handleSubmit}>Finalizar compra</Button></div>
                 <div><ButtonLink href='/'>Continuar compra</ButtonLink></div>
             </div>
         </div>

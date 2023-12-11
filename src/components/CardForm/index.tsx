@@ -43,7 +43,7 @@ export const CardForm = () => {
                 />
                 <Input
                     label="Ano de expiração"
-                    placeholder="Ex: 30"
+                    placeholder="Ex: 2030"
                     type="text"
                     onChange={(e) => handleInputChange('cardExpiryYear', e.target.value)}
                 />
