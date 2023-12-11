@@ -43,7 +43,7 @@ export default function SearchPage() {
           ))
         ) : (
           <div className="mt-10">
-            <Loading />
+            <Loading size={32}/>
           </div>
         )}
       </section>
