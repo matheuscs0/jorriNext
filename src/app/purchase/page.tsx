@@ -1,3 +1,4 @@
+'use client'
 import { useEffect, useState } from 'react';
 import { TableTotal } from "@/components/TableTotal";
 import { Table } from "../Table";

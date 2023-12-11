@@ -1,3 +1,4 @@
+'use client'
 import { useEffect, useState } from 'react';
 import { PaymentMethods } from "@/components/PaymentMethods";
 import { PaymentOrder } from "@/components/PaymentOrder";
