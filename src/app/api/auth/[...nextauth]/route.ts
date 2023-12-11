@@ -1,9 +1,8 @@
-import { NextAuthOptions } from "next-auth";
-import NextAuth from "next-auth/next";
+import { AuthOptions } from "next-auth";
+import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 
-
- export const options: NextAuthOptions ={
+const OPTIONS: AuthOptions = {
     providers: [
         GoogleProvider({
             clientId: "750408216884-ouuigjmplgmbnst855fptr8cuhphfm1n.apps.googleusercontent.com",
@@ -13,8 +12,8 @@ import GoogleProvider from "next-auth/providers/google";
     pages: {
         signIn: '/profile'
     }
- }
+}
 
-const handler = NextAuth(options)
+const handler = NextAuth(OPTIONS)
 
-export {handler as GET, handler as POST}
+export { handler as GET, handler as POST }
