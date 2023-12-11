@@ -25,7 +25,6 @@ export default function ProductsDetailsPage({ params }: ProductsPageProps) {
   const [selectedSize, setSelectedSize] = useState<SizeType | null>(null);
   const { addProduct } = useCart();
   const { setContextSize } = useSize();
-  const [isMobile, setIsMobile] = useState(false);
 
   const handleSizeClick = (size: SizeType) => {
     setSelectedSize(size);
@@ -45,19 +44,6 @@ export default function ProductsDetailsPage({ params }: ProductsPageProps) {
   const handlePosterClick = () => {
     setSelectedImage(null);
   };
-
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth < 1280);
-    };
-
-    window.addEventListener('resize', handleResize);
-    handleResize();
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
 
   async function getProducts() {
     try {
@@ -81,8 +67,8 @@ export default function ProductsDetailsPage({ params }: ProductsPageProps) {
       {products !== null &&
         products.map((product: ProductType) => (
           <div key={product.id} className="w-full">
-            <div className={`w-full ${isMobile ? 'flex-col' : 'justify-center'} gap-5 flex`}>
-            <div className={`flex justify-center gap-10 ${isMobile ? 'gap-2 ' : ''}`}>
+            <div className={`w-full sm:flex-row justify-center gap-5 flex-col lg:flex xl:flex md:flex 2xl:flex`}>
+            <div className={`flex justify-center gap-2 sm:gap-10`}>
               <div className="flex flex-col gap-2">
               {product.image_about_1 && (
                   <ImageAbout
@@ -128,16 +114,16 @@ export default function ProductsDetailsPage({ params }: ProductsPageProps) {
                   onClick={handlePosterClick}
                 />
             </div>
-            <div className={`w-[500px] flex-col text-left mr-28 ${isMobile ? 'justify-center items-center mr-0 text-center w-full' : ''}`}>
+            <div className={`w-full flex-col text-center mr-28 sm:justify-center sm:items-center sm:mr-0 sm:text-left sm:w-[500px]`}>
               <div className="flex flex-col gap-1 mb-10">
                 <h1 className="font-bold text-4xl">{product.name}</h1>
-                <p className={`text-md text-left ${isMobile ? 'justify-center items-center mr-0 text-center w-full' : ''}`}>cod: {product.id}</p>
+                <p className={`text-md text-center sm:justify-center sm:items-center sm:mr-0 sm:text-left sm:w-full`}>cod: {product.id}</p>
               </div>
               <div className="flex flex-col mt-10 gap-1">
                 <h1 className="text-4xl font-bold">{formatPrice(selectedSize ? selectedSize.price : product.price)}</h1>
                 <h1 className="text-xl">3x de {installmentPrice(selectedSize ? selectedSize.price : product.price)} sem juros</h1>
               </div>
-              <div className={`flex flex-col mt-10 ${isMobile ? 'justify-center items-center mr-0 text-center w-full' : ''}`}>
+              <div className={`flex flex-col mt-10 items-center sm:justify-start sm:items-start sm:mr-0 sm:text-center sm:w-full`}>
                 <h1 className="font-bold text-lg">Selecione um tamanho:</h1>
                 <div className="flex mt-3">
                 <ul className="flex gap-3">
@@ -155,7 +141,7 @@ export default function ProductsDetailsPage({ params }: ProductsPageProps) {
                 </ul>
                 </div>
               </div>
-              <div className={`w-80 mt-5 ${isMobile ? 'justify-center items-center mr-0 text-center w-full' : ''}`}>
+              <div className={`w-full mt-5 sm:justify-center sm:items-center sm:mr-0 sm:text-center sm:w-80`}>
                 <Button
                   bg="bg-black"
                   colorText="text-white"
@@ -164,7 +150,7 @@ export default function ProductsDetailsPage({ params }: ProductsPageProps) {
                   Adicionar ao Carrinho
                 </Button>
               </div>
-              <div className={`flex flex-col mt-10 gap-2 ${isMobile ? 'justify-center items-center mr-0 text-center w-full' : ''}`}>
+              <div className={`flex flex-col mt-10 gap-2 items-center sm:justify-center sm:items-start sm:mr-0 sm:text-center sm:w-full`}>
                 {product.description.map((item, index) => (
                   <div key={index}>
                     {typeof item === "string" ? (

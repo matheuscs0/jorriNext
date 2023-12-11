@@ -6,24 +6,9 @@ import { SearchCep } from "@/components/searchCep";
 import { useCardFormContext } from "@/contexts/CardFormContext";
 
 export default function PaymentPage() {
-    const [isMobile, setIsMobile] = useState(false);
-
-    useEffect(() => {
-        const handleResize = () => {
-            setIsMobile(window.innerWidth < 650);
-        };
-
-        window.addEventListener('resize', handleResize);
-        handleResize();
-
-        return () => {
-            window.removeEventListener('resize', handleResize);
-        };
-    }, []);
-
     return (
-        <div className={`w-full flex justify-around items-center ${isMobile ? 'flex-col mt-[1000px]' : ''}`}>
-            <div className={`gap-2 flex-col justify-center`}>
+        <div className='w-full flex flex-col justify-around mt-[1000px] items-center sm:flex-row sm:mt-0 lg:flex xl:flex md:flex 2xl:flex'>
+            <div className={`gap-2 flex-col justify-center sm:flex-row sm:w-full`}>
                 <div className="w-full flex justify-center mb-5">
                     <SearchCep />
                 </div>

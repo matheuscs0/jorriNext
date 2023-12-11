@@ -21,7 +21,7 @@ export const TableTotal = () => {
 
   const handleSubmit = () => {
     if (frete) {
-      push('/purchase/paymen')
+      push('/purchase/payment')
     } else{
         alert('Escreva um CEP válido')
     }
