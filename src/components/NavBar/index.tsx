@@ -31,7 +31,19 @@ const NavBar = ({ hasIconAccount }: NavBarProps) => {
       </div>
       <div className="flex gap-4 text-3xl justify-center items-center">
       <div className="hidden sm:flex"><InputSearchIcon/></div>
-      {session ? (<Link href='/profile' className="flex w-[35px] h-[35px]"><img src={session?.user?.image} alt=""  className="flex object-cover rounded-full"/></Link>) : (<div><Link href='/login'>{hasIconAccount && <IoPersonOutline />}</Link></div>)}
+      {session ? (
+  <Link href='/profile' className="flex w-[35px] h-[35px]">
+    {session.user?.image ? (
+      <img src={session.user.image} alt="" className="flex object-cover rounded-full"/>
+    ) : (
+      <div>Sem imagem</div>
+    )}
+  </Link>
+) : (
+  <div>
+    <Link href='/login'>{hasIconAccount && <IoPersonOutline />}</Link>
+  </div>
+)}
         <CartIcon/>
       </div>
     </nav>
