@@ -2,7 +2,6 @@
 import { useEffect, useState } from 'react';
 import { TableTotal } from "@/components/TableTotal";
 import { Table } from "../Table";
-import { ShippingFrete } from "@/components/shippingFrete";
 import { TableTotalMobile } from "@/components/TableTotal/TableTotalMobile";
 
 export default function PurchasePage() {

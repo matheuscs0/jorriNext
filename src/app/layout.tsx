@@ -3,10 +3,7 @@ import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import { NavBar } from "@/components/NavBar";
 import Provider from "@/contexts/Provider";
-import { CartProvider } from "@/contexts/CartProvider";
-import { SideProvider } from "@/contexts/SideBarContext";
-import { SearchProvider } from "@/contexts/SearchContext";
-import { SizeProvider } from "@/contexts/SizeContext";
+import Script from 'next/script'
 
 const montserrat = Montserrat({
   weight: ["300", "700"],
@@ -27,6 +24,7 @@ export default function RootLayout({
   return (
     <html lang="pt-br" className={montserrat.className}>
       <body className="w-screen h-screen flex-col m-0 p-0 bg-white">
+      <script src="https://assets.pagseguro.com.br/checkout-sdk-js/rc/dist/browser/pagseguro.min.js" async/>
        <Provider>
                 <header className="mb-10">
                   <NavBar hasIconAccount={true} hasIconCart={true} />

@@ -5,14 +5,23 @@ import { CiSearch } from "react-icons/ci";
 import axios from "axios";
 import { Button } from "../Buttons/DefaultButton";
 import { useFormContext } from "@/contexts/formContext";
+import { useCardFormContext } from "@/contexts/CardFormContext";
 
 export const SearchCep = () => {
     const { cepFormData, setCepFormData } = useFormContext();
+    const { cardFormData, setCardFormData } = useCardFormContext();
     const [open, setOpen] = useState(true)
 
     const handleCepChange = (event: ChangeEvent<HTMLInputElement>) => {
       const newCep = event.target.value;
       setCepFormData((prevData) => ({ ...prevData, cep: newCep }));
+    };
+
+    const handleInputChange = (key: keyof typeof cardFormData, value: string) => {
+      setCardFormData((prevData) => ({
+        ...prevData,
+        [key]: value,
+      }));
     };
   
     const searchCep = async () => {
@@ -35,12 +44,27 @@ export const SearchCep = () => {
       console.log(cepFormData);
     };
     return(
-        <form onSubmit={handleSubmit} className={`${window.innerWidth < 650 ? 'w-[400px]' : 'w-[750px]'} ${open ? '' : 'h-28'} flex flex-col bg-zinc-100 rounded-md shadow-md duration-500 transition-all`}>
+        <form onSubmit={handleSubmit} className={`w-[750px] ${open ? '' : 'h-28'} flex flex-col bg-zinc-100 rounded-md shadow-md duration-500 transition-all xs:w-[400px]`}>
             <div className="w-full border-b p-3">
                 <h1 className=" font-bold text-xl">Endereço para envio</h1>
             </div>
             <div className={`${open ? 'flex' : 'hidden'}`}>
             <div className="flex flex-wrap w-full justify-center items-center gap-5 p-3">
+                <div className="w-full flex items-center gap-10 justify-center">
+                <Input
+                    label="Nome"
+                    placeholder="Nome no completo"
+                    type="text"
+                    autoComplete="name" 
+                    onChange={(e) => handleInputChange('cardName', e.target.value)}
+                />
+               <Input
+                    label="CPF"
+                    placeholder="CPF"
+                    type="text"
+                    onChange={(e) => handleInputChange('cpf', e.target.value)}
+                />
+                </div>
                 <div className="flex gap-2">
                 <Input
                     label="CEP"

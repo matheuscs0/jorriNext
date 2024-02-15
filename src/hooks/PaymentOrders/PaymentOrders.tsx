@@ -7,11 +7,22 @@ import axios from "axios";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { SendEmailConst } from "../SendEmail";
+import { useEffect, useState } from "react";
+
+const loadPagSeguroScript = () => {
+    return new Promise((resolve) => {
+      const script = document.createElement('script');
+      script.src = 'https://assets.pagseguro.com.br/checkout-sdk-js/rc/dist/browser/pagseguro.min.js';
+      script.async = true;
+      script.onload = resolve;
+      document.head.appendChild(script);
+    });
+  };
 
 export const PaymentMethodsOrder = () => {
     const {push} = useRouter();
     const { setPurchase } = usePurchaseContext();
-    const {cartItems, totalAmount, setBarcode, setQrCode} = useCart()
+    const {cartItems, totalAmount} = useCart()
     const { cardFormData } = useCardFormContext();
     const { cepFormData } = useFormContext();
     const {data: session} = useSession();
@@ -25,6 +36,7 @@ export const PaymentMethodsOrder = () => {
 
     const PaymentCardCredit = async () => {
       try {
+        await loadPagSeguroScript();
           const res = await axios.post("http://localhost:3003/PaymentCreditCard", {
               namePerson: cardFormData.cardName,
               email,
@@ -39,99 +51,28 @@ export const PaymentMethodsOrder = () => {
               state: cepFormData.state,
               number: cepFormData.number,
               complemento: cepFormData.complemento,
-              cardNumber: cardFormData.cardNumber,
-              cardName: cardFormData.cardName,
-              cvv: cardFormData.cardCVV,
-              exp_month: cardFormData.cardExpiryMonth,
-              exp_year: cardFormData.cardExpiryYear
           });
-  
+          const response = res.data
           const purchaseId = res.data.id;
-          console.log('purchaseId', purchaseId)
-  
-          if (purchaseId && purchaseId.length > 0) {
-              console.log("Redirecionando para o sucesso");
-              
-              // Atualizar o estado local antes de chamar a API
-              setPurchase({
-                  cep: cepFormData.cep,
-                  address: cepFormData.address,
-                  city: cepFormData.city,
-                  state: cepFormData.state,
-                  number: cepFormData.number,
-                  complemento: cepFormData.complemento,
-                  cpf: cardFormData.cpf,
-                  itemName: cartItems.map((item) => item.name),
-                  itemPrice: cartItems.map((item) => item.price),
-                  itemId: cartItems.map((item) => item.id),
-                  namePerson: cardFormData.cardName,
-                  purchaseId,
-                  totalAmount,
-                  email: session?.user?.email
-              });
-              
-              await new Promise(resolve => setTimeout(resolve, 0));
-              SendEmail()
-              // Chamar a API
-              await axios.post("http://localhost:3003/api/addPurchase", {
-                  purchase: [{
-                          product: itemName,
-                          itemId: itemId,
-                          email,
-                          cep: cepFormData.cep,
-                          address: cepFormData.address,
-                          city: cepFormData.city,
-                          state: cepFormData.state,
-                          number: cepFormData.number,
-                          complemento: cepFormData.complemento,
-                          cpf: cardFormData.cpf,
-                          price: totalAmount,
-                          date: new Date(),
-                          purchaseId: purchaseId
-                      }]
-                  }
-              );
-  
-              push(`/purchase/payment/sucess/credit-card/${purchaseId}`);
-          } else {
-              console.error("ID da compra inválido:", purchaseId);
-              alert("Pagamento recusado, verifique todos os campos");
-          }
-      } catch (error) {
-          console.error("Erro no pagamento:", error);
-          alert("Pagamento recusado");
-      }
-  };
+          const href_for_pay = res.data.href_for_pay
+          const status = res.data.status
+          console.log('resssss', response)
 
-  const PaymentPixCredit = async () => {
-    try {
-        const res = await axios.post("http://localhost:3003/PaymentPix", {
-            namePerson: cardFormData.cardName,
-            email,
-            cpf: cardFormData.cpf,
-            itemName,
-            itemPrice,
-            itemId,
-            totalAmount,
-            cep: cepFormData.cep,
-            address: cepFormData.address,
-            city: cepFormData.city,
-            state: cepFormData.state,
-            number: cepFormData.number,
-            complemento: cepFormData.complemento,
-        });
-        console.log(res.data)
-        const purchaseId = res.data.id;
-        const barcode = res.data.qrCodeText
-        const qrCode = res.data.qrCodeLinks
-        setBarcode(barcode)
-        setQrCode(qrCode)
-
-        if (purchaseId && purchaseId.length > 0) {
+          if (status === "ACTIVE") {
+            push(`${href_for_pay}`);
+          } else if (status === "PAY") {
             console.log("Redirecionando para o sucesso");
-            
-            // Atualizar o estado local antes de chamar a API
-            setPurchase({
+            await new Promise(resolve => setTimeout(resolve, 0));
+    
+            // Enviar e-mail
+            SendEmail();
+    
+            // Chamar a API para adicionar a compra
+            await axios.post("http://localhost:3003/api/addPurchase", {
+              purchase: [{
+                product: itemName,
+                itemId: itemId,
+                email,
                 cep: cepFormData.cep,
                 address: cepFormData.address,
                 city: cepFormData.city,
@@ -139,131 +80,19 @@ export const PaymentMethodsOrder = () => {
                 number: cepFormData.number,
                 complemento: cepFormData.complemento,
                 cpf: cardFormData.cpf,
-                itemName: cartItems.map((item) => item.name),
-                itemPrice: cartItems.map((item) => item.price),
-                itemId: cartItems.map((item) => item.id),
-                namePerson: cardFormData.cardName,
-                purchaseId,
-                totalAmount,
-                email: session?.user?.email
+                price: totalAmount,
+                date: new Date(),
+                purchaseId: purchaseId
+              }]
             });
-
-            // Aguarde a atualização do estado antes de continuar
-            await new Promise(resolve => setTimeout(resolve, 0));
-
-            // Agora faça a chamada para axios.post("http://localhost:3003/api/updateUser"...)
-            await axios.post("http://localhost:3003/api/addPurchase", {
-                purchase: [{
-                        product: itemName,
-                        itemId: itemId,
-                        email,
-                        cep: cepFormData.cep,
-                        address: cepFormData.address,
-                        city: cepFormData.city,
-                        state: cepFormData.state,
-                        number: cepFormData.number,
-                        complemento: cepFormData.complemento,
-                        cpf: cardFormData.cpf,
-                        price: totalWithoutSymbols,
-                        date: new Date(),
-                        purchaseId: purchaseId
-                    }]
-                }
-            );
-
-            push(`/purchase/payment/sucess/pix/${purchaseId}`);
-        } else {
-            console.error("ID da compra inválido:", purchaseId);
-            alert("Pagamento recusado, verifique todos os campos");
+          }
+        } catch (error) {
+          console.error("Erro no pagamento:", error);
+          alert("Pagamento recusado");
         }
-    } catch (error) {
-        console.error("Erro no pagamento:", error);
-        alert("Pagamento recusado");
-    }
-};
-const PaymentBoletoCredit = async () => {
-  try {
-      const res = await axios.post("http://localhost:3003/PaymentBoleto", {
-          namePerson: cardFormData.cardName,
-          email,
-          cpf: cardFormData.cpf,
-          itemName,
-          itemPrice,
-          itemId,
-          totalAmount,
-          cep: cepFormData.cep,
-          address: cepFormData.address,
-          city: cepFormData.city,
-          state: cepFormData.state,
-          number: cepFormData.number,
-          complemento: cepFormData.complemento,
-      });
-      console.log(res.data)
-      const purchaseId = res.data.id;
-      const barcode = res.data.boleto
-      const qrCode = res.data.barcode
-        setBarcode(barcode)
-        setQrCode(qrCode)
-
-      if (purchaseId && purchaseId.length > 0) {
-          console.log("Redirecionando para o sucesso");
-          
-          // Atualizar o estado local antes de chamar a API
-          setPurchase({
-              cep: cepFormData.cep,
-              address: cepFormData.address,
-              city: cepFormData.city,
-              state: cepFormData.state,
-              number: cepFormData.number,
-              complemento: cepFormData.complemento,
-              cpf: cardFormData.cpf,
-              itemName: cartItems.map((item) => item.name),
-              itemPrice: cartItems.map((item) => item.price),
-              itemId: cartItems.map((item) => item.id),
-              namePerson: cardFormData.cardName,
-              purchaseId,
-              totalAmount,
-              email: session?.user?.email
-          });
-
-          // Aguarde a atualização do estado antes de continuar
-          await new Promise(resolve => setTimeout(resolve, 0));
-
-          // Agora faça a chamada para axios.post("http://localhost:3003/api/updateUser"...)
-          await axios.post("http://localhost:3003/api/addPurchase", {
-              purchase: [{
-                      product: itemName,
-                      itemId: itemId,
-                      email,
-                      cep: cepFormData.cep,
-                      address: cepFormData.address,
-                      city: cepFormData.city,
-                      state: cepFormData.state,
-                      number: cepFormData.number,
-                      complemento: cepFormData.complemento,
-                      cpf: cardFormData.cpf,
-                      price: totalAmount,
-                      date: new Date(),
-                      purchaseId: purchaseId
-                  }]
-              }
-          );
-
-          push(`/purchase/payment/sucess/boleto/${purchaseId}`);
-      } else {
-          console.error("ID da compra inválido:", purchaseId);
-          alert("Pagamento recusado, verifique todos os campos");
-      }
-  } catch (error) {
-      console.error("Erro no pagamento:", error);
-      alert("Pagamento recusado");
-  }
-};
-
+      };
 
   return {
     PaymentCardCredit,
-    PaymentPixCredit,
-    PaymentBoletoCredit
   };
 };

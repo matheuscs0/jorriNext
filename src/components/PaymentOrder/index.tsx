@@ -7,19 +7,13 @@ import { usePaymentContext } from "@/contexts/PaymentMethodContext";
 export const PaymentOrder = () => {
 
     const {cartItems, deleteProduct, totalAmount, frete, SubTotalAmount, discount} = useCart()
-    const {PaymentCardCredit, PaymentPixCredit, PaymentBoletoCredit} = PaymentMethodsOrder()
+    const {PaymentCardCredit} = PaymentMethodsOrder()
     const { selectedMethod } = usePaymentContext();
 
     const handleSubmit = async () => {
         switch (selectedMethod) {
           case "card":
             await PaymentCardCredit();
-            break;
-          case "Pix":
-            await PaymentPixCredit();
-            break;
-          case "Boleto":
-            await PaymentBoletoCredit();
             break;
           default:
             // Tratar o método desconhecido, se necessário
@@ -29,7 +23,7 @@ export const PaymentOrder = () => {
 
     return(
         <>
-            <div className={`${window.innerWidth < 650 ? 'w-[400px]' : 'w-[470px]'} h-[635px] flex flex-col bg-zinc-100 rounded-md shadow-md`}>
+            <div className={`w-[400px] h-[635px] flex flex-col bg-zinc-100 rounded-md shadow-md`}>
                 <div className="w-full p-3 border-b"><h1 className="font-bold text-xl">Produtos</h1></div>
                 <div className="overflow-y-scroll w-full h-80 p-3 border-b">
                 {cartItems.map((product) => (
