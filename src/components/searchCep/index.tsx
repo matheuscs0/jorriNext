@@ -43,8 +43,8 @@ export const SearchCep = () => {
       event.preventDefault();
       console.log(cepFormData);
     };
-    return(
-        <form onSubmit={handleSubmit} className={`w-[750px] ${open ? '' : 'h-28'} flex flex-col bg-zinc-100 rounded-md shadow-md duration-500 transition-all xs:w-[400px]`}>
+    return (
+        <form onSubmit={handleSubmit} className={`w-[350px] ${open ? '' : 'h-28'} flex flex-col bg-zinc-100 rounded-md shadow-md duration-500 transition-all sm:w-[750px] `}>
             <div className="w-full border-b p-3">
                 <h1 className=" font-bold text-xl">Endereço para envio</h1>
             </div>

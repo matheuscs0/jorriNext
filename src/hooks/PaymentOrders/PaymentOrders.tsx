@@ -5,7 +5,7 @@ import { usePurchaseContext } from "@/contexts/PurchaseContext";
 import { useFormContext } from "@/contexts/formContext";
 import axios from "axios";
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { SendEmailConst } from "../SendEmail";
 import { useEffect, useState } from "react";
 
@@ -20,7 +20,7 @@ const loadPagSeguroScript = () => {
   };
 
 export const PaymentMethodsOrder = () => {
-    const {push} = useRouter();
+    const router = useRouter();
     const { setPurchase } = usePurchaseContext();
     const {cartItems, totalAmount} = useCart()
     const { cardFormData } = useCardFormContext();
@@ -59,7 +59,7 @@ export const PaymentMethodsOrder = () => {
           console.log('resssss', response)
 
           if (status === "ACTIVE") {
-            push(`${href_for_pay}`);
+            router.push(`${href_for_pay}`);
           } else if (status === "PAY") {
             console.log("Redirecionando para o sucesso");
             await new Promise(resolve => setTimeout(resolve, 0));
