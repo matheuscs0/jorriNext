@@ -37,7 +37,7 @@ export const PaymentMethodsOrder = () => {
     const PaymentCardCredit = async () => {
       try {
         await loadPagSeguroScript();
-          const res = await axios.post("http://localhost:3003/PaymentCreditCard", {
+          const res = await axios.post("https://mongodb-jorri-next-production.up.railway.app/PaymentCreditCard", {
               namePerson: cardFormData.cardName,
               email,
               cpf: cardFormData.cpf,
@@ -68,7 +68,7 @@ export const PaymentMethodsOrder = () => {
             SendEmail();
     
             // Chamar a API para adicionar a compra
-            await axios.post("http://localhost:3003/api/addPurchase", {
+            await axios.post("https://mongodb-jorri-next-production.up.railway.app/api/addPurchase", {
               purchase: [{
                 product: itemName,
                 itemId: itemId,

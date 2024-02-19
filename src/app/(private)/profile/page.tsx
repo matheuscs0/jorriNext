@@ -20,7 +20,7 @@ export default function ProfilePage() {
   const updateBackendUserAndPurchase = async () => {
     try {
       if (session?.user) {
-        const response = await fetch('http://localhost:3003/api/addUser', {
+        const response = await fetch('https://mongodb-jorri-next-production.up.railway.app//api/addUser', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

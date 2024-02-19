@@ -41,7 +41,7 @@ export default function ProductPage() {
             <Link href={`/products/${product.id}`} className="w-full h-full">
               <div className="flex w-full h-[250px] justify-center items-center mb-8">
                 <img
-                  src={`mongodb-jorri-next-production.up.railway.app${product.poster_path}`}
+                  src={`https://mongodb-jorri-next-production.up.railway.app/imagens/${product.poster_path}`}
                   alt={product.name}
                   className="flex w-full h-full object-cover"
                 />

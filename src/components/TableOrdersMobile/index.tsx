@@ -34,7 +34,7 @@ export const TableOrdersMobile = () => {
 
   const getUserData = async () => {
     try {
-      const response = await fetch(`http://localhost:3003/api/getUser/${email}`);
+      const response = await fetch(`https://mongodb-jorri-next-production.up.railway.app//api/getUser/${email}`);
       if (response.ok) {
         const userData = await response.json();
         console.log('Dados do usuário:', userData);

@@ -5,7 +5,7 @@ export const DivAboutOne = () => {
     return(
         <div className={`w-screen flex-col bg-black items-center justify-around text-center sm:flex md:flex-row `}>
             <div className="flex flex-col justify-center items-center">
-                <h1 className="text-white text-6xl text-center font-bold max-w-[350px]">BLACK FRIDAY</h1>
+                <div className="text-white text-4xl text-center font-bold max-w-[350px] sm:text-6xl md:text-6xl"><h1>CAMPANHA</h1> <div className="flex ml-0 sm:ml-10 md:ml-10"><p className="text-[14px]">DE</p> <h1>LANÇAMENTO!</h1></div></div>
                 <div className="flex gap-5 my-5">
                     <ContainerBlackFriday quantify={5} parts={1}/>
                     <ContainerBlackFriday quantify={10} parts={2}/>

@@ -72,43 +72,43 @@ export default function ProductsDetailsPage({ params }: ProductsPageProps) {
               <div className="flex flex-col gap-2">
               {product.image_about_1 && (
                   <ImageAbout
-                    src={`https://mongodb-jorri-next-production.up.railway.app/api/produtos${product.image_about_1}`}
+                    src={`https://mongodb-jorri-next-production.up.railway.app/imagens/${product.image_about_1}`}
                     onClick={() => handleImageClick(product.image_about_1)}
                   />
                 )}
                 {product.image_about_2 && (
                   <ImageAbout
-                    src={`https://mongodb-jorri-next-production.up.railway.app/${product.image_about_2}`}
+                    src={`https://mongodb-jorri-next-production.up.railway.app/imagens/${product.image_about_2}`}
                     onClick={() => handleImageClick(product.image_about_2)}
                   />
                 )}
                 {product.image_about_3 && (
                   <ImageAbout
-                    src={`https://mongodb-jorri-next-production.up.railway.app${product.image_about_3}`}
+                    src={`https://mongodb-jorri-next-production.up.railway.app/imagens/${product.image_about_3}`}
                     onClick={() => handleImageClick(product.image_about_3)}
                   />
                 )}
                 {product.image_about_4 && (
                   <ImageAbout
-                    src={`https://mongodb-jorri-next-production.up.railway.app/api/produtos/${product.image_about_4}`}
+                    src={`https://mongodb-jorri-next-production.up.railway.app/imagens/${product.image_about_4}`}
                     onClick={() => handleImageClick(product.image_about_4)}
                   />
                 )}
                 {product.size_info && (
                   <ImageAbout
-                    src={`https://mongodb-jorri-next-production.up.railway.app/api/produtos/${product.size_info}`}
+                    src={`https://mongodb-jorri-next-production.up.railway.app/imagens/${product.size_info}`}
                     onClick={() => handleImageClick(product.size_info)}
                   />
                 )}
                 {selectedImage && (
                   <ImageAbout
-                    src={`https://mongodb-jorri-next-production.up.railway.app/api/produtos/${product.poster_path}`}
+                    src={`https://mongodb-jorri-next-production.up.railway.app/imagens/${product.poster_path}`}
                     onClick={() => handleImageClick(product.poster_path)}
                   />
                 )}
               </div>
               <img
-                  src={`https://mongodb-jorri-next-production.up.railway.app/api/produtos/${selectedImage || product.poster_path}`}
+                  src={`https://mongodb-jorri-next-production.up.railway.app/imagens/${selectedImage || product.poster_path}`}
                   alt={product.name}
                   className="w-[300px] h-[300px] mr-0 cursor-pointer object-cover sm:w-[600px] sm:h-[600px]"
                   onClick={handlePosterClick}

@@ -16,7 +16,7 @@ export const CardCart = () => {
         >
           <div className="w-[50%] h-full flex justify-center items-center">
             <img
-              src={`http://localhost:3002${product.poster_path || null}`} 
+              src={`https://mongodb-jorri-next-production.up.railway.app/imagens/${product.poster_path || null}`} 
               alt=""
               className="w-[100px] h-[100px] object-cover"
             />

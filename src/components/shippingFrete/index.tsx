@@ -18,7 +18,7 @@ export const ShippingFrete = () => {
 
       const shippingFrete = async () => {
         try{
-          const res = await axios.post('http://localhost:3003/calculateFrete', {
+          const res = await axios.post('https://mongodb-jorri-next-production.up.railway.app/calculateFrete', {
             cep: cepFormData.cep,
             itemId,
             itemPrice

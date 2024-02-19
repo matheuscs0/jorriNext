@@ -27,7 +27,7 @@ export function TableBody() {
                 <tbody className="border-b" key={product.id}>
                     <tr>
                         <td className="text-left text-sm py-1 text-[#5D6D74]">
-                            <img src={`http://localhost:3002${product.poster_path}`} alt="" className="w-24 h-24" />
+                            <img src={`https://mongodb-jorri-next-production.up.railway.app/imagens/${product.poster_path}`} alt="" className="w-24 h-24" />
                         </td>
                         <td className="text-left text-sm py-1 text-[#5D6D74]">    
                             <p className="">

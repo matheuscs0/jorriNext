@@ -24,7 +24,7 @@ export const TableTotalMobile = () => {
                 {cartItems.map((product) => (
                     <div key={product.id} className="w-full flex justify-around mt-10">
                         <div className="flex justify-center items-center">
-                            <img src={`http://localhost:3002${product.poster_path || null}`}  alt="" className="w-[105px] h-[85px] object-cover rounded-xl shadow-md"/>
+                            <img src={`https://mongodb-jorri-next-production.up.railway.app/imagens/${product.poster_path || null}`}  alt="" className="w-[105px] h-[85px] object-cover rounded-xl shadow-md"/>
                         </div>
                         <div className="w-1/2 flex justify-center items-center">
                             <div className="w-[150px] flex flex-col">
