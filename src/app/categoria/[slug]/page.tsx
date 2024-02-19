@@ -13,7 +13,7 @@ export default function ProductPage() {
 
   async function getProducts() {
     try {
-      const res = await fetch(`http://localhost:3002/api/categoria/${slug}`);
+      const res = await fetch(`mongodb-jorri-next-production.up.railway.app/api/categoria/${slug}`);
       if (!res.ok) {
         throw new Error("Erro");
       }
@@ -41,7 +41,7 @@ export default function ProductPage() {
             <Link href={`/products/${product.id}`} className="w-full h-full">
               <div className="flex w-full h-[250px] justify-center items-center mb-8">
                 <img
-                  src={`http://localhost:3002${product.poster_path}`}
+                  src={`mongodb-jorri-next-production.up.railway.app${product.poster_path}`}
                   alt={product.name}
                   className="flex w-full h-full object-cover"
                 />

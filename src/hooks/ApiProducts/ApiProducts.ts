@@ -6,7 +6,7 @@ export const GetProducts = () => {
 
     async function getProducts() {
         try {
-          const res = await fetch('http://localhost:3002/api/produtos');
+          const res = await fetch('https://api-jorri-next-production.up.railway.app/api/produtos');
           if (!res.ok) {
             throw new Error("Erro");
           }
