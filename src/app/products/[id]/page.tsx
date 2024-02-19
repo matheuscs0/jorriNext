@@ -72,19 +72,19 @@ export default function ProductsDetailsPage({ params }: ProductsPageProps) {
               <div className="flex flex-col gap-2">
               {product.image_about_1 && (
                   <ImageAbout
-                    src={`https://mongodb-jorri-next-production.up.railway.app/api/produtos/${product.image_about_1}`}
+                    src={`https://mongodb-jorri-next-production.up.railway.app/api/produtos${product.image_about_1}`}
                     onClick={() => handleImageClick(product.image_about_1)}
                   />
                 )}
                 {product.image_about_2 && (
                   <ImageAbout
-                    src={`https://mongodb-jorri-next-production.up.railway.app/api/produtos/${product.image_about_2}`}
+                    src={`https://mongodb-jorri-next-production.up.railway.app/${product.image_about_2}`}
                     onClick={() => handleImageClick(product.image_about_2)}
                   />
                 )}
                 {product.image_about_3 && (
                   <ImageAbout
-                    src={`https://mongodb-jorri-next-production.up.railway.app/api/produtos/${product.image_about_3}`}
+                    src={`https://mongodb-jorri-next-production.up.railway.app${product.image_about_3}`}
                     onClick={() => handleImageClick(product.image_about_3)}
                   />
                 )}
