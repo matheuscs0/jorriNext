@@ -18,7 +18,7 @@ const ProductCard = () => {
           <Link href={`/products/${product.id}`} className="w-full h-full">
             <div className="flex w-full h-[250px] justify-center items-center mb-8">
               <img
-                src={`http://localhost:3002${product.poster_path}`}
+                src={`https://mongodb-jorri-next-production.up.railway.app/api/produtos/${product.poster_path}`}
                 alt={product.name}
                 className="flex w-full h-full object-cover"
               />

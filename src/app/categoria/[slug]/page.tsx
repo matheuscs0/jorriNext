@@ -13,7 +13,7 @@ export default function ProductPage() {
 
   async function getProducts() {
     try {
-      const res = await fetch(`mongodb-jorri-next-production.up.railway.app/api/categoria/${slug}`);
+      const res = await fetch(`https://mongodb-jorri-next-production.up.railway.app/api/categoria/${slug}`);
       if (!res.ok) {
         throw new Error("Erro");
       }

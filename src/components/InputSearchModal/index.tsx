@@ -10,7 +10,7 @@ export const InputSearchModal = () => {
 
   const handleSearch = async () => {
     try {
-      const response = await axios.get(`http://localhost:3002/api/search?q=${searchTerm}`);
+      const response = await axios.get(`https://mongodb-jorri-next-production.up.railway.app/api/search?q=${searchTerm}`);
       setSearchResults(response.data);
       push(`/search`);
     } catch (error) {
