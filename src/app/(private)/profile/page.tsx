@@ -13,7 +13,7 @@ export default function ProfilePage() {
   const { push } = useRouter()
 
   const signOutButton = () => {
-      push('/login')
+      push('/')
       signOut()
   }
 
