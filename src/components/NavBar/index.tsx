@@ -7,7 +7,7 @@ import { CartIcon } from '../CartIcon/index';
 import { Cardo } from "next/font/google";
 import { MenuIcon } from "../Menu/MenuIcon";
 import { InputSearchIcon } from "../InputSearch/InputSearchIcon";
-import { useSession } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 
 
 const cardo = Cardo({
@@ -40,8 +40,8 @@ const NavBar = ({ hasIconAccount }: NavBarProps) => {
     )}
   </Link>
 ) : (
-  <div>
-    <Link href='/login'>{hasIconAccount && <IoPersonOutline />}</Link>
+  <div className="flex items-center">
+    <button onClick={() => signIn('google')}>{hasIconAccount && <IoPersonOutline />}</button>
   </div>
 )}
         <CartIcon/>
