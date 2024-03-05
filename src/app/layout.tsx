@@ -5,6 +5,7 @@ import { NavBar } from "@/components/NavBar";
 import Provider from "@/contexts/Provider";
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { Footer } from "@/components/Footer";
+import { Analytics } from "@vercel/analytics/react"
 
 const montserrat = Roboto({
   weight: ["400", "700"],
@@ -40,6 +41,7 @@ export default function RootLayout({
           <footer className="mt-10 bottom-0"><Footer /></footer>
         </body>
         <SpeedInsights/>
+        <Analytics/>
       </Provider>
     </html>
   );
