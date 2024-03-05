@@ -1,12 +1,14 @@
 "use client";
 
 import { MenuData } from "@/const/MenuListItems";
+import { useSideBar } from "@/contexts/SideBarContext";
 import { HandleMenuList } from "@/hooks/HandleMenuList";
 import Link from "next/link";
 
 export const Menu = () => {
   const { openCategorias, openMenu, handleCategoriasClick, handleMenuClick } =
     HandleMenuList();
+  const { setSideOpen } = useSideBar();
 
   return (
     <div
@@ -35,7 +37,10 @@ export const Menu = () => {
           <ul className="flex-col cursor-pointer rounded-sm mb-2 duration-300 transition-all">
             {MenuData.Categorias.map((item, index) => (
               <Link key={index} href={item.href}>
-                <li className="hover:bg-gray-400/10 transition-colors rounded-sm mb-3 mx-3 p-2 border-b">
+                <li
+                  className="hover:bg-gray-400/10 transition-colors rounded-sm mb-3 mx-3 p-2 border-b"
+                  onClick={() => setSideOpen(false)}
+                >
                   <Link
                     href={item.href}
                     className="text-md origin-left font-bold"
@@ -50,14 +55,17 @@ export const Menu = () => {
         {openMenu && (
           <ul className="flex-col cursor-pointer rounded-sm mb-2">
             {MenuData.MenuList.map((item, index) => (
+               <Link key={index} href={item.href}>
               <li
                 className="hover:bg-gray-400/10 transition-colors rounded-sm mb-3 mx-3 p-2 border-b"
                 key={index}
+                onClick={() => setSideOpen(false)}
               >
                 <span className="text-md origin-left font-bold">
                   {item.text}
                 </span>
               </li>
+              </Link>
             ))}
           </ul>
         )}

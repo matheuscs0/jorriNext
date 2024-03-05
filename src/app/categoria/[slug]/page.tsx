@@ -5,7 +5,7 @@ import { useParams } from "next/navigation";
 import { Loading } from "@/components/Loading";
 import { ButtonLink } from "@/components/Buttons/ButtonLink";
 import Link from "next/link";
-import { formatPrice } from "@/hooks/formatPrice/formatPrice";
+import { formatPrice } from "@/hooks/formatPrice/formatPrice"
 
 export default function ProductPage() {
   const [products, setProducts] = useState<ProductType[]>([]);
@@ -29,7 +29,7 @@ export default function ProductPage() {
   }, []);
 
   return (
-    <div className="mt-10 flex flex-col w-full h-full items-center">
+    <div className="mt-16 flex flex-col w-full h-full items-center">
       <h1 className="text-2xl font-bold uppercase">{slug}:</h1>
       <section className="flex flex-wrap justify-center items-center gap-5 p-10">
       {products.length > 0 ? (

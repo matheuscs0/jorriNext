@@ -1,4 +1,5 @@
 import { formatDate, formatPrice } from "@/hooks/formatPrice/formatPrice";
+import { error } from "console";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 
@@ -33,13 +34,13 @@ export const TableOrders = () => {
 
   const getUserData = async () => {
     try {
-      const response = await fetch(`https://mongodb-jorri-next-production.up.railway.app//api/getUser/${email}`);
+      const response = await fetch(`https://mongodb-jorri-next-production.up.railway.app/api/getUser/${email}`);
       if (response.ok) {
         const userData = await response.json();
         console.log('Dados do usuário:', userData);
         setUserData(userData);
       } else {
-        console.error('Falha ao obter dados do usuário do backend');
+        console.error('Falha ao obter dados do usuário do backend' );
       }
     } catch (error) {
       console.error('Erro ao fazer solicitação para obter dados do usuário do backend', error);

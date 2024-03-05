@@ -1,12 +1,13 @@
 import "./globals.css";
 import type { Metadata } from "next";
-import { Montserrat } from "next/font/google";
+import { Roboto } from "next/font/google";
 import { NavBar } from "@/components/NavBar";
 import Provider from "@/contexts/Provider";
-import Script from 'next/script'
+import Script from "next/script";
+import { Footer } from "@/components/Footer";
 
-const montserrat = Montserrat({
-  weight: ["300", "700"],
+const montserrat = Roboto({
+  weight: ["400", "700"],
   subsets: ["latin"],
   display: "swap",
 });
@@ -23,19 +24,22 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-br" className={montserrat.className}>
-      <body className="w-screen h-screen flex-col m-0 p-0 bg-white">
-      <script src="https://assets.pagseguro.com.br/checkout-sdk-js/rc/dist/browser/pagseguro.min.js" async/>
-       <Provider>
-                <header className="mb-10">
-                  <NavBar hasIconAccount={true} hasIconCart={true} />
-                </header>
-                <div className="w-full h-full flex justify-center mt-10">
-                  <section className="w-full h-full flex mx-6 my-10">
-                    {children}
-                  </section>
-                </div>
-          </Provider>
-      </body>
+      <Provider>
+        <body className="w-full h-full flex-col m-0 p-0 bg-white">
+          {/* Cabeçalho da página */}
+          <header className="mb-10">
+            <NavBar hasIconAccount={true} hasIconCart={true} />
+          </header>
+          
+          {/* Conteúdo principal */}
+          <section className="w-full h-full flex">
+            {children}
+          </section>
+
+          {/* Rodapé da página */}
+          <footer className="mt-10 bottom-0"><Footer /></footer>
+        </body>
+      </Provider>
     </html>
   );
-}
+} 

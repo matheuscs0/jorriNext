@@ -24,7 +24,7 @@ const ProductCard = () => {
               />
             </div>
             <div className="flex flex-col justify-center items-center gap-1 w-full h-[50px]">
-              <h3 className="text-center text-sm flex justify-center">
+              <h3 className="text-center text-lg flex justify-center">
                 {product.name}
               </h3>
               <p className="text-center text-md flex justify-center ">

@@ -21,25 +21,34 @@ export const MenuData = {
             href: '/categoria/pingentes'
         },
         {
+            text: 'Conjuntos',
+            href: '/categoria/conjuntos'
+        },
+        {
             text: 'Mais vendidos',
             href: '/categoria/mais-vendidos'
         },
     ],
     MenuList: [
         {
-            text: 'Sobre nós'
+            text: 'Sobre nós',
+            href: '/menu#sobre-nos'
         },
         {
-            text: 'Cuidados'
+            text: 'Cuidados',
+            href: '/menu#cuidados'
         },
         {
-            text: 'Garantia'
+            text: 'Garantia',
+            href: '/menu#garantia'
         },
         {
-            text: 'Política de envio'
+            text: 'Política de envio',
+            href: '/menu#trocas'
         },
         {
-            text: 'Troca e devolução'
+            text: 'Troca e devolução',
+            href: '/menu#trocas'
         }
     ]
 }
