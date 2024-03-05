@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 import { NavBar } from "@/components/NavBar";
 import Provider from "@/contexts/Provider";
-import Script from "next/script";
+import { SpeedInsights } from "@vercel/speed-insights/next"
 import { Footer } from "@/components/Footer";
 
 const montserrat = Roboto({
@@ -39,6 +39,7 @@ export default function RootLayout({
           {/* Rodapé da página */}
           <footer className="mt-10 bottom-0"><Footer /></footer>
         </body>
+        <SpeedInsights/>
       </Provider>
     </html>
   );
