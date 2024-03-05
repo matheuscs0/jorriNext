@@ -28,7 +28,7 @@ export const Footer = () => {
               <MdMailOutline size={20} />
             </div>
             <Link
-              href="https://api.whatsapp.com/send/?phone=5511961083809&text&type=phone_number&app_absent=0"
+              href="mailto:contato.jorri@gmail.com"
               target="_blank"
             >
               contato.jorri@gmail.com
