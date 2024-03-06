@@ -17,6 +17,7 @@ export default function Home() {
     }
   }, [products]);
 
+
   return (
     <section className="w-full h-full items-center justify-center mt-10">
           <nav className="w-full flex mt-5"><DivAboutOne/></nav>
