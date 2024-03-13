@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { FaWhatsapp } from "react-icons/fa";
+import { FaInstagram, FaWhatsapp } from "react-icons/fa";
 import { IoPhonePortraitOutline } from "react-icons/io5";
 import { MdMailOutline } from "react-icons/md";
 import { SiInstagram } from "react-icons/si";
@@ -100,13 +100,13 @@ export const Footer = () => {
         <h1 className="text-2xl font-bold">Siga-nos</h1>
         <div className="flex justify-center items-center gap-2">
           <Link href="https://www.instagram.com/jorri.joias/" target="_blank">
-            <SiInstagram size={30} />
+            <FaInstagram size={30} />
           </Link>
           <Link
             href="https://api.whatsapp.com/send/?phone=5511961083809&text&type=phone_number&app_absent=0"
             target="_blank"
           >
-            <FaWhatsapp size={32} />
+            <FaWhatsapp size={30} />
           </Link>
         </div>
       </div>

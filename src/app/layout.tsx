@@ -5,7 +5,7 @@ import { NavBar } from "@/components/NavBar";
 import Provider from "@/contexts/Provider";
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { Footer } from "@/components/Footer";
-import { Analytics } from "@vercel/analytics/react"
+import { GoogleTagManager } from '@next/third-parties/google'
 
 const montserrat = Roboto({
   weight: ["400", "700"],
@@ -26,30 +26,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-br" className={montserrat.className}>
-      <head>
-          {/* Google Tag Manager */}
-          <script
-            dangerouslySetInnerHTML={{
-              __html: `
-                (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-                new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-                j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-                'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-                })(window,document,'script','dataLayer','GTM-WJ6S53BG');
-              `,
-            }}
-          />
-          {/* End Google Tag Manager */}
-        </head>
+       <GoogleTagManager gtmId="GTM-WJ6S53BG" />
       <Provider>
         <body className="w-full h-full flex-col m-0 p-0 bg-white">
-        <noscript
-            dangerouslySetInnerHTML={{
-              __html: `<iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WJ6S53BG"
-              height="0" width="0" style="display:none;visibility:hidden"></iframe>`,
-            }}
-          />
-          {/* Cabeçalho da página */}
+        
           <header className="mb-10">
             <NavBar hasIconAccount={true} hasIconCart={true} />
           </header>
@@ -62,8 +42,6 @@ export default function RootLayout({
           {/* Rodapé da página */}
           <footer className="mt-10 bottom-0"><Footer /></footer>
         </body>
-        <SpeedInsights/>
-        <Analytics/>
       </Provider>
     </html>
   );

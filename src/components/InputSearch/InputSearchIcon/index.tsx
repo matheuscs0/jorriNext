@@ -1,6 +1,7 @@
 import { InputSearchModal } from "@/components/InputSearchModal";
 import { HandlesSideBar } from "@/hooks/HandlesSideBar";
 import { CiSearch } from "react-icons/ci"
+import { IoSearchOutline } from "react-icons/io5";
 
 export const InputSearchIcon = () => {
 
@@ -9,7 +10,7 @@ export const InputSearchIcon = () => {
     return(
         <>
             <button onClick={toggleSideSearch}>
-                <CiSearch size={30}/>
+                <IoSearchOutline size={30}/>
             </button>
             {sideSearchOpen && <InputSearchModal/>}
         </>
