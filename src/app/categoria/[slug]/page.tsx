@@ -6,18 +6,26 @@ import { Loading } from "@/components/Loading";
 import { ButtonLink } from "@/components/Buttons/ButtonLink";
 import Link from "next/link";
 import { formatPrice } from "@/hooks/formatPrice/formatPrice"
+import { useProducts } from "@/contexts/ProductsContext";
+import { ProductCard } from "@/components/ProductCard";
+import { CgUnavailable } from "react-icons/cg";
+import { IoCartOutline } from "react-icons/io5";
 
 export default function ProductPage() {
-  const [products, setProducts] = useState<ProductType[]>([]);
+  const {products, setProducts} = useProducts()
   const { slug } = useParams();
+  
+
 
   async function getProducts() {
     try {
       const res = await fetch(`https://mongodb-jorri-next-production.up.railway.app/api/categoria/${slug}`);
+      setProducts(null);
       if (!res.ok) {
         throw new Error("Erro");
       }
       const data = await res.json();
+      console.log(data)
       setProducts(data);
     } catch (error) {
       console.error("Erro ao buscar produtos:", error);
@@ -32,41 +40,46 @@ export default function ProductPage() {
     <div className="mt-16 flex flex-col w-full h-full items-center">
       <h1 className="text-2xl font-bold uppercase">{slug}:</h1>
       <section className="flex flex-wrap justify-center items-center gap-5 p-10">
-      {products.length > 0 ? (
-        products.map((product: ProductType) => (
-          <div
-            className="flex flex-col w-[308px] h-[430px] bg-zinc-100 justify-around items-center p-4 rounded-2xl cursor-pointer hover:shadow-md transition-shadow"
-            key={product.id}
-          >
+      {products && products.map((product: ProductType) => (
+        <div
+          className="flex flex-col w-[372px] h-[605px] bg-zinc-100 justify-around items-center cursor-pointer hover:shadow-md transition-shadow"
+          key={product.id}
+        >
             <Link href={`/products/${product.id}`} className="w-full h-full">
-              <div className="flex w-full h-[250px] justify-center items-center mb-8">
-                <img
-                  src={`https://mongodb-jorri-next-production.up.railway.app/imagens/${product.poster_path}`}
-                  alt={product.name}
-                  className="flex w-full h-full object-cover"
-                />
+            <div className="flex w-full h-[465px] justify-center items-center mb-8 relative">
+              <img
+                src={`https://mongodb-jorri-next-production.up.railway.app/imagens/${product.poster_path}`}
+                alt={product.name}
+                className="flex w-full h-full object-cover rounded-t-md"
+              />
+              <div className="absolute bottom-2">
+                <Link className="" href={`/products/${product.id}`}>
+                    <div className="bg-black text-white rounded-full p-1">
+                      <IoCartOutline size={30}/>
+                    </div>
+                </Link>
               </div>
-              <div className="flex flex-col justify-center items-center gap-1 w-full h-[50px]">
-                <h3 className="text-center text-sm flex justify-center">
-                  {product.name}
-                </h3>
-                <p className="text-center text-md flex justify-center ">
-                  {formatPrice(product.price)}
-                </p>
-              </div>
-              <div className="w-full flex justify-center items-center my-4">
-                <ButtonLink href={`/products/${product.id}`}>
-                  Ver detalhes
-                </ButtonLink>
-              </div>
-            </Link>
-          </div>
-        ))
-      ) : (
-        <div className="mt-10">
-          <Loading size={32}/>
+            </div>
+            <div className="flex flex-col justify-center items-center gap-1 w-full">
+              <h3 className="text-center text-lg flex justify-center font-bold">
+                {product.name}
+              </h3>
+              {product.quantity === 0 ? (
+                    <p className="text-center text-md flex justify-center items-center gap-2">
+                        Produto indisponível  <CgUnavailable />
+                    </p>
+                ) : (
+                  <>
+                    <p className="text-center text-md flex justify-center">
+                        {formatPrice(product.price)}
+                    </p>
+                    <p className="text-center text-md flex justify-center">ou em 3x de {formatPrice(product.price/3)}</p>
+                  </>
+                )}
+            </div>
+          </Link>
         </div>
-      )}
+      ))}
       </section>
     </div>
   );

@@ -1,17 +1,14 @@
 "use client";
 import { useCardFormContext } from "@/contexts/CardFormContext";
 import { useCart } from "@/contexts/CartProvider";
-import { usePurchaseContext } from "@/contexts/PurchaseContext";
 import { useFormContext } from "@/contexts/formContext";
 import axios from "axios";
 import { useSession } from "next-auth/react";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { SendEmailConst } from "../SendEmail";
-import { useEffect, useState } from "react";
 
 export const PaymentMethodsOrder = () => {
   const router = useRouter();
-  const { setPurchase } = usePurchaseContext();
   const { cartItems, totalAmount } = useCart();
   const { cardFormData } = useCardFormContext();
   const { cepFormData } = useFormContext();
@@ -22,7 +19,6 @@ export const PaymentMethodsOrder = () => {
   const itemName = cartItems.map((item) => item.name);
   const itemPrice = cartItems.map((item) => item.price);
   const itemId = cartItems.map((item) => item.id);
-  const totalWithoutSymbols = totalAmount.toString().replace(/[.,]/g, "");
 
   const PaymentCardCredit = async () => {
     try {
@@ -55,9 +51,7 @@ export const PaymentMethodsOrder = () => {
       } else if (status === "PAY") {
         console.log("Redirecionando para o sucesso");
         await new Promise((resolve) => setTimeout(resolve, 0));
-
         SendEmail();
-
         
         await axios.post(
           "https://mongodb-jorri-next-production.up.railway.app/api/addPurchase",
@@ -84,7 +78,7 @@ export const PaymentMethodsOrder = () => {
       }
     } catch (error) {
       console.error("Erro no pagamento:", error);
-      alert("Pagamento recusado");
+      alert("Pagamento recusado, por favor preencha todos os campos.");
     }
   };
 

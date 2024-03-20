@@ -9,6 +9,7 @@ import { CepFormProvider } from '../formContext';
 import { CardFormProvider } from '../CardFormContext';
 import { PurchaseProvider } from '../PurchaseContext';
 import { PaymentMethodProvider } from '../PaymentMethodContext';
+import { ProductsProvider } from '../ProductsContext';
 
 type ProviderProps = {
     children: ReactNode
@@ -25,7 +26,9 @@ const Provider = ({children}: ProviderProps) =>{
                                 <CardFormProvider>
                                     <PurchaseProvider>
                                         <PaymentMethodProvider>
+                                            <ProductsProvider>
                                             {children}
+                                            </ProductsProvider>
                                         </PaymentMethodProvider>
                                     </PurchaseProvider>
                                 </CardFormProvider>

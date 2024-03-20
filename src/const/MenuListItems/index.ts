@@ -26,7 +26,7 @@ export const MenuData = {
         },
         {
             text: 'Mais vendidos',
-            href: '/categoria/mais-vendidos'
+            href: '/mais-vendidos'
         },
     ],
     MenuList: [

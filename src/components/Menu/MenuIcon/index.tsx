@@ -1,7 +1,7 @@
 "use client";
 
 import { HandlesSideBar } from "@/hooks/HandlesSideBar";
-import { IoIosMenu } from "react-icons/io";
+import { IoIosClose, IoIosMenu } from "react-icons/io";
 import { Menu } from "@/components/Menu";
 
 export const MenuIcon = () => {
@@ -10,7 +10,8 @@ export const MenuIcon = () => {
     <>
       <div className="flex justify-center items-center cursor-pointer">
         <button onClick={toggleSideBar}>
-          <IoIosMenu size={32} />
+          <IoIosMenu size={32} className={`${sideOpen ? ("rotate-90 hidden transition-all duration-300 ") : (" ")}`}/>
+          <IoIosClose size={40} className={`${sideOpen ? ("") : (" hidden transition-all duration-300")}`}/>
         </button>
       </div>
       {sideOpen && (<Menu/>)}

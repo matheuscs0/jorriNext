@@ -2,23 +2,14 @@ import { useCart } from "@/contexts/CartProvider"
 import { formatPrice } from '../../hooks/formatPrice/formatPrice';
 import { Button } from "../Buttons/DefaultButton";
 import { PaymentMethodsOrder } from "@/hooks/PaymentOrders";
-import { usePaymentContext } from "@/contexts/PaymentMethodContext";
 
 export const PaymentOrder = () => {
 
     const {cartItems, deleteProduct, totalAmount, frete, SubTotalAmount, discount} = useCart()
     const {PaymentCardCredit} = PaymentMethodsOrder()
-    const { selectedMethod } = usePaymentContext();
 
     const handleSubmit = async () => {
-        switch (selectedMethod) {
-          case "card":
-            await PaymentCardCredit();
-            break;
-          default:
-            // Tratar o método desconhecido, se necessário
-            break;
-        }
+        PaymentCardCredit()
       };
 
     return(
