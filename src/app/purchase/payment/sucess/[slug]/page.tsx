@@ -12,7 +12,6 @@ export default function SucessPage() {
     console.log(purchaseID)
 
     const options = {
-        method: 'GET',
         headers: {
           accept: 'application/json',
           Authorization: `Bearer ${process.env.BEARER_TOKEN}`
@@ -20,16 +19,13 @@ export default function SucessPage() {
       };
 
     useEffect(() => {
-        const getDados = async () => {
           try {
-            const res = await axios.get(`https://sandbox.api.pagseguro.com/checkouts/${purchaseID}`, options);
+            const res = axios.get(`https://sandbox.api.pagseguro.com/checkouts/${purchaseID}`, options);
             console.log("res", res);
             setLoading(true)
           } catch (error) {
             console.error("erro ao tentar se tornar um produtor:", error);
           }
-        };
-        getDados();
       }, []);
 
     return(
