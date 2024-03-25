@@ -18,15 +18,20 @@ export default function SucessPage() {
         }
       };
 
-    useEffect(() => {
+      useEffect(() => {
+        const fetchData = async () => {
           try {
-            const res = axios.get(`https://sandbox.api.pagseguro.com/checkouts/${purchaseID}`, options);
+            const res = await axios.get(`https://sandbox.api.pagseguro.com/checkouts/${purchaseID}`, options);
             console.log("res", res);
-            setLoading(true)
+            setLoading(true);
           } catch (error) {
             console.error("erro ao tentar se tornar um produtor:", error);
           }
-      }, []);
+        };
+      
+        fetchData();
+      
+      }, [purchaseID]);
 
     return(
         <div className="w-full h-full flex mt-10 flex-col">

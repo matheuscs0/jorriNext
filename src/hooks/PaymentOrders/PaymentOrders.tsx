@@ -42,7 +42,7 @@ export const PaymentMethodsOrder = () => {
       );
       const response = res.data;
       setPurchaseID(res.data.id);
-      console.log('id', purchaseID)
+      console.log(purchaseID)
       const href_for_pay = res.data.href_for_pay;
       setStatusForOrder(href_for_pay)
       const status = res.data.status;
