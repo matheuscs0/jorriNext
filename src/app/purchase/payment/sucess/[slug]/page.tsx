@@ -1,11 +1,35 @@
 'use client'
 import { ButtonLink } from "@/components/Buttons/ButtonLink";
+import { useCart } from "@/contexts/CartProvider";
 import { usePurchaseContext } from "@/contexts/PurchaseContext";
+import axios from "axios";
+import { useEffect } from "react";
 import { FaCheckCircle } from "react-icons/fa";
 
 export default function SucessPage() {
-    const { purchaseData } = usePurchaseContext();
-    console.log(purchaseData)
+    const { purchaseID } = useCart();
+    console.log(purchaseID)
+
+    const options = {
+        method: 'GET',
+        headers: {
+          accept: 'application/json',
+          Authorization: 'Bearer 9972E314B018408F88912BCBAF3D06DD'
+        }
+      };
+
+    useEffect(() => {
+        const getDados = async () => {
+          try {
+            const res = await axios.get(`https://sandbox.api.pagseguro.com/checkouts/${purchaseID}`, options);
+            console.log("res", res);
+          } catch (error) {
+            console.error("erro ao tentar se tornar um produtor:", error);
+          }
+        };
+        getDados();
+      }, []);
+
     return(
         <div className="w-full h-full flex mt-10 flex-col">
             <div className="w-full m-30 bg-zinc-100 rounded-md shadow-md">
@@ -16,8 +40,8 @@ export default function SucessPage() {
                     </div>
                 </div>
                 <div className="w-full justify-center items-center flex mt-10 flex-col border-b pb-10">
-                    <h1 className="text-2xl flex ">Olá <span className="font-bold"> {purchaseData?.namePerson}</span>, sua compra foi confirmada</h1>
-                    <p>ID DA COMPRA: {purchaseData?.purchaseId}</p>
+                    <h1 className="text-2xl flex ">Olá <span className="font-bold"> </span>, sua compra foi confirmada</h1>
+                    <p>ID DA COMPRA: {purchaseID}</p>
                     <p className="w-1/2 mt-10 text-xl text-center">
                     Parabéns! Sua compra foi confirmada com sucesso. Agradecemos por escolher nossos produtos. Seu suporte significa o mundo para nós.
 

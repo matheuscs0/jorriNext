@@ -25,6 +25,10 @@ interface CartContextType {
   setBarcode: (amount: string) => void;
   qrCode: string
   setQrCode: (amount: string) => void
+  purchaseID: string
+  setPurchaseID: (amount: string) => void
+  statusForOrder: string
+  setStatusForOrder: (amount: string) => void
 }
 
 const CartContext = createContext<CartContextType>({} as CartContextType);
@@ -39,6 +43,8 @@ export function CartProvider({ children }: CartContextProps) {
   const [discount, setDiscount] = useState(0);
   const [barcode, setBarcode] = useState('')
   const [qrCode, setQrCode] = useState('')
+  const [purchaseID, setPurchaseID] = useState('')
+  const [statusForOrder, setStatusForOrder] = useState('')
 
 
   useEffect(() => {
@@ -109,7 +115,7 @@ export function CartProvider({ children }: CartContextProps) {
 
 
   return (
-    <CartContext.Provider value={{ cartOpen, setCartOpen, cartItems, setCartItems, addProduct, deleteProduct, totalAmount, frete, setFrete, SubTotalAmount, deliveryTime, setDeliveryTime, discount, setDiscount, barcode, setBarcode, qrCode, setQrCode }}>
+    <CartContext.Provider value={{ cartOpen, setCartOpen, cartItems, setCartItems, addProduct, deleteProduct, totalAmount, frete, setFrete, SubTotalAmount, deliveryTime, setDeliveryTime, discount, setDiscount, barcode, setBarcode, qrCode, setQrCode, purchaseID, setPurchaseID, statusForOrder, setStatusForOrder }}>
       {children}
     </CartContext.Provider>
   );
