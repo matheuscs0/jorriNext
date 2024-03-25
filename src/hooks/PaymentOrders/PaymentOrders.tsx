@@ -9,7 +9,7 @@ import { SendEmailConst } from "../SendEmail";
 
 export const PaymentMethodsOrder = () => {
   const router = useRouter();
-  const { cartItems, totalAmount, setPurchaseID, setStatusForOrder } = useCart();
+  const { cartItems, totalAmount, setPurchaseID, setStatusForOrder, purchaseID } = useCart();
   const { cardFormData } = useCardFormContext();
   const { cepFormData } = useFormContext();
   const { data: session } = useSession();
@@ -41,8 +41,8 @@ export const PaymentMethodsOrder = () => {
         }
       );
       const response = res.data;
-      const purchaseId = res.data.id;
-      setPurchaseID(purchaseId);
+      setPurchaseID(res.data.id);
+      console.log('id', purchaseID)
       const href_for_pay = res.data.href_for_pay;
       setStatusForOrder(href_for_pay)
       const status = res.data.status;
@@ -71,7 +71,7 @@ export const PaymentMethodsOrder = () => {
                 cpf: cardFormData.cpf,
                 price: totalAmount,
                 date: new Date(),
-                purchaseId: purchaseId,
+                purchaseId: purchaseID,
               },
             ],
           }
