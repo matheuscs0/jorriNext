@@ -9,7 +9,7 @@ import { FaCheckCircle } from "react-icons/fa";
 export default function SucessPage() {
     const { purchaseID } = useCart();
     const [loading, setLoading] = useState(false)
-    console.log(purchaseID)
+    console.log('id',purchaseID)
 
     const options = {
         headers: {
