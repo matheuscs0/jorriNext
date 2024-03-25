@@ -14,7 +14,7 @@ export default function SucessPage() {
         method: 'GET',
         headers: {
           accept: 'application/json',
-          Authorization: 'Bearer 9972E314B018408F88912BCBAF3D06DD'
+          Authorization: `${process.env.BEARER_TOKEN}`
         }
       };
 
