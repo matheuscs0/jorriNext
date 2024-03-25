@@ -3,18 +3,19 @@ import { ButtonLink } from "@/components/Buttons/ButtonLink";
 import { useCart } from "@/contexts/CartProvider";
 import { usePurchaseContext } from "@/contexts/PurchaseContext";
 import axios from "axios";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { FaCheckCircle } from "react-icons/fa";
 
 export default function SucessPage() {
     const { purchaseID } = useCart();
+    const [loading, setLoading] = useState(false)
     console.log(purchaseID)
 
     const options = {
         method: 'GET',
         headers: {
           accept: 'application/json',
-          Authorization: `${process.env.BEARER_TOKEN}`
+          Authorization: `Bearer ${process.env.BEARER_TOKEN}`
         }
       };
 
@@ -23,6 +24,7 @@ export default function SucessPage() {
           try {
             const res = await axios.get(`https://sandbox.api.pagseguro.com/checkouts/${purchaseID}`, options);
             console.log("res", res);
+            setLoading(true)
           } catch (error) {
             console.error("erro ao tentar se tornar um produtor:", error);
           }
