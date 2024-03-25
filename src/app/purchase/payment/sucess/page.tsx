@@ -9,7 +9,9 @@ import { FaCheckCircle } from "react-icons/fa";
 export default function SucessPage() {
     const { purchaseID } = useCart();
     const [loading, setLoading] = useState(false)
-    console.log('id',purchaseID)
+    useEffect(() => {
+      console.log('purchaseID atualizado:', purchaseID);
+    }, [purchaseID]);
 
     const options = {
         headers: {

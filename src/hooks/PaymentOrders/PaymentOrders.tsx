@@ -6,14 +6,16 @@ import axios from "axios";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { SendEmailConst } from "../SendEmail";
+import { useEffect } from "react";
 
 export const PaymentMethodsOrder = () => {
   const router = useRouter();
-  const { cartItems, totalAmount, setPurchaseID, setStatusForOrder, purchaseID } = useCart();
+  const { cartItems, totalAmount } = useCart();
   const { cardFormData } = useCardFormContext();
   const { cepFormData } = useFormContext();
   const { data: session } = useSession();
   const { SendEmail } = SendEmailConst();
+  const { purchaseID, setPurchaseID } = useCart();
 
   const email = session?.user?.email;
   const itemName = cartItems.map((item) => item.name);
@@ -41,10 +43,9 @@ export const PaymentMethodsOrder = () => {
         }
       );
       const response = res.data;
-      setPurchaseID(res.data.id);
-      console.log(purchaseID)
+      setPurchaseID(res.data.id)
+      console.log('id', purchaseID)
       const href_for_pay = res.data.href_for_pay;
-      setStatusForOrder(href_for_pay)
       const status = res.data.status;
 
       if (status === "ACTIVE") {
