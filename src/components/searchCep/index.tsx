@@ -72,6 +72,7 @@ export const SearchCep = () => {
                     type="text"
                     autoComplete="cep"
                     onChange={handleCepChange}
+                    value={cepFormData.cep && cepFormData.cep}
                 />
                 <button type="button" onClick={searchCep} className="bg-black/90 text-white mt-5 p-1 text-xl rounded-md"><CiSearch /></button>
                 </div>

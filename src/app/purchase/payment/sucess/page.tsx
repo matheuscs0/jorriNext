@@ -2,16 +2,17 @@
 import { ButtonLink } from "@/components/Buttons/ButtonLink";
 import { useCart } from "@/contexts/CartProvider";
 import { usePurchaseContext } from "@/contexts/PurchaseContext";
+import { usePurchaseIDContext } from "@/contexts/PurchaseID";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { FaCheckCircle } from "react-icons/fa";
 
 export default function SucessPage() {
-    const { purchaseID } = useCart();
+    const {  newPurchaseID } = usePurchaseIDContext();
     const [loading, setLoading] = useState(false)
     useEffect(() => {
-      console.log('purchaseID atualizado:', purchaseID);
-    }, [purchaseID]);
+      console.log('purchaseID atualizado:', newPurchaseID);
+    }, [newPurchaseID]);
 
     const options = {
         headers: {
@@ -23,7 +24,7 @@ export default function SucessPage() {
       useEffect(() => {
         const fetchData = async () => {
           try {
-            const res = await axios.get(`https://sandbox.api.pagseguro.com/checkouts/${purchaseID}`, options);
+            const res = await axios.get(`https://sandbox.api.pagseguro.com/checkouts/${newPurchaseID}`, options);
             console.log("res", res);
             setLoading(true);
           } catch (error) {
@@ -33,7 +34,7 @@ export default function SucessPage() {
       
         fetchData();
       
-      }, [purchaseID]);
+      }, [newPurchaseID]);
 
     return(
         <div className="w-full h-full flex mt-10 flex-col">
@@ -46,7 +47,7 @@ export default function SucessPage() {
                 </div>
                 <div className="w-full justify-center items-center flex mt-10 flex-col border-b pb-10">
                     <h1 className="text-2xl flex ">Olá <span className="font-bold"> </span>, sua compra foi confirmada</h1>
-                    <p>ID DA COMPRA: {purchaseID}</p>
+                    <p>ID DA COMPRA: {newPurchaseID}</p>
                     <p className="w-1/2 mt-10 text-xl text-center">
                     Parabéns! Sua compra foi confirmada com sucesso. Agradecemos por escolher nossos produtos. Seu suporte significa o mundo para nós.
 
