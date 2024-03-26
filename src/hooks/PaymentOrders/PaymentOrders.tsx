@@ -6,8 +6,9 @@ import axios from "axios";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { SendEmailConst } from "../SendEmail";
-import { useEffect } from "react";
-import { usePurchaseIDContext } from "@/contexts/PurchaseID";
+import { useEffect, useState } from "react";
+import { setPurchaseID } from "@/contexts/purchaseGlobal";
+
 
 export const PaymentMethodsOrder = () => {
   const router = useRouter();
@@ -16,7 +17,6 @@ export const PaymentMethodsOrder = () => {
   const { cepFormData } = useFormContext();
   const { data: session } = useSession();
   const { SendEmail } = SendEmailConst();
-  const { newPurchaseID, setNewPurchaseID} = usePurchaseIDContext();
 
   const email = session?.user?.email;
   const itemName = cartItems.map((item) => item.name);
@@ -44,10 +44,9 @@ export const PaymentMethodsOrder = () => {
         }
       );
       const response = res.data;
-      const idOrder = res.data.id;
+      const idOrder =  res.data.id
       console.log('id const', idOrder)
-      setNewPurchaseID(idOrder)
-      console.log('id api', newPurchaseID)
+      setPurchaseID(idOrder)
       const href_for_pay = res.data.href_for_pay;
       const status = res.data.status;
 
@@ -75,7 +74,7 @@ export const PaymentMethodsOrder = () => {
                 cpf: cardFormData.cpf,
                 price: totalAmount,
                 date: new Date(),
-                purchaseId: newPurchaseID,
+                purchaseId: idOrder,
               },
             ],
           }

@@ -10,7 +10,7 @@ import { CardFormProvider } from '../CardFormContext';
 import { PurchaseProvider } from '../PurchaseContext';
 import { PaymentMethodProvider } from '../PaymentMethodContext';
 import { ProductsProvider } from '../ProductsContext';
-import { PurchaseIDProvider } from '../PurchaseID';
+import { PurchaseProviderID } from '../PurchaseID';
 
 type ProviderProps = {
     children: ReactNode
@@ -28,9 +28,9 @@ const Provider = ({children}: ProviderProps) =>{
                                     <PurchaseProvider>
                                         <PaymentMethodProvider>
                                             <ProductsProvider>
-                                                <PurchaseIDProvider>
+                                                <PurchaseProviderID>
                                             {children}
-                                            </PurchaseIDProvider>
+                                            </PurchaseProviderID>
                                             </ProductsProvider>
                                         </PaymentMethodProvider>
                                     </PurchaseProvider>

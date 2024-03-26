@@ -1,30 +1,41 @@
-// purchaseIDContext.tsx
+import { createContext, useContext, useState, ReactNode } from "react";
 
-import React, { ReactNode, createContext, useContext, useState } from 'react';
+type PurchaseData = {
+  id: string;
+};
 
-interface PurchaseIDContextProps {
-  newPurchaseID: string | null;
-  setNewPurchaseID: React.Dispatch<React.SetStateAction<string | null>>;
-}
+type PurchaseContextType = {
+  purchaseID: string | null;
+  setPurchaseID: (purchase: PurchaseData) => void;
+};
 
-const PurchaseIDContext = createContext<PurchaseIDContextProps>({
-  newPurchaseID: null,
-  setNewPurchaseID: () => {},
-});
+const PurchaseContext = createContext<PurchaseContextType | undefined>(
+  undefined
+);
 
-type Children = {
-  children: ReactNode
-}
+export const usePurchaseID = () => {
+  const context = useContext(PurchaseContext);
+  if (!context) {
+    throw new Error(
+      "usePurchaseID deve ser usado dentro de um PurchaseProvider"
+    );
+  }
+  return context;
+};
 
-export const usePurchaseIDContext = () => useContext(PurchaseIDContext);
+export const PurchaseProviderID: React.FC<{ children: ReactNode }> = ({
+  children,
+}) => {
+  const [purchaseID, setPurchaseID] = useState<string | null>(null);
 
-export const PurchaseIDProvider = ({ children }: Children) => {
-  const [newPurchaseID, setNewPurchaseID] = useState<string | null>(null);
+  const updatePurchaseID = (purchase: PurchaseData) => {
+    setPurchaseID(purchase.id);
+  };
 
   return (
-    <PurchaseIDContext.Provider value={{ newPurchaseID, setNewPurchaseID }}>
+    <PurchaseContext.Provider value={{ purchaseID, setPurchaseID: updatePurchaseID }}>
       {children}
-    </PurchaseIDContext.Provider>
+    </PurchaseContext.Provider>
   );
 };
 
