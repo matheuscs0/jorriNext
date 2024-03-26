@@ -44,9 +44,10 @@ export const PaymentMethodsOrder = () => {
       );
 
       const purchaseId = res.data.id;
+    if (purchaseId) {
       setPurchase(prevPurchase => ({
         ...prevPurchase,
-        idOrder: res.data.id,
+        idOrder: purchaseId,
         namePerson: prevPurchase?.namePerson || '', // Defina um valor padrão para namePerson
         cpf: prevPurchase?.cpf || '', // Defina um valor padrão para cpf
         itemName: prevPurchase?.itemName || [], // Defina um valor padrão para itemName
@@ -61,14 +62,19 @@ export const PaymentMethodsOrder = () => {
         complemento: prevPurchase?.complemento || '', // Defina um valor padrão para complemento
         email: prevPurchase?.email || null, // Defina um valor padrão para email
       }));
-      console.log('id api',purchaseData?.idOrder)
+      console.log('id api', purchaseId);
+      // Restante do código...
+    } else {
+      console.error("ID de compra não está definido na resposta da API");
+      // Trate a situação de ID de compra não definido conforme necessário
+    }
       const href_for_pay = res.data.href_for_pay;
       const status = res.data.status;
 
       if (status === "ACTIVE") {
         setTimeout(() => {
           router.push(href_for_pay);
-        }, 200);
+        }, 500);
       } else if (status === "PAY") {
         try {
           await axios.post(
