@@ -15,7 +15,7 @@ export const PaymentMethodsOrder = () => {
   const { cepFormData } = useFormContext();
   const { data: session } = useSession();
   const { SendEmail } = SendEmailConst();
-  const {setPurchase, purchaseData} = usePurchaseContext()
+  const { setPurchase, purchaseData } = usePurchaseContext();
 
   const email = session?.user?.email;
   const itemName = cartItems.map((item) => item.name);
@@ -42,12 +42,11 @@ export const PaymentMethodsOrder = () => {
           complemento: cepFormData.complemento,
         }
       );
-      const response = res.data;
-      console.log(response)
-      const purchaseId = res.data.id
+
+      const purchaseId = res.data.id;
       setPurchase(prevPurchase => ({
         ...prevPurchase,
-        idOrder: purchaseId || null,
+        idOrder: res.data.id,
         namePerson: prevPurchase?.namePerson || '', // Defina um valor padrão para namePerson
         cpf: prevPurchase?.cpf || '', // Defina um valor padrão para cpf
         itemName: prevPurchase?.itemName || [], // Defina um valor padrão para itemName
@@ -67,38 +66,43 @@ export const PaymentMethodsOrder = () => {
       const status = res.data.status;
 
       if (status === "ACTIVE") {
-        router.push(`${href_for_pay}`);
+        setTimeout(() => {
+          router.push(href_for_pay);
+        }, 200);
       } else if (status === "PAY") {
-        await axios.post(
-          "https://mongodb-jorri-next-production.up.railway.app/api/addPurchase",
-          {
-            purchase: [
-              {
-                product: itemName,
-                itemId: itemId,
-                email,
-                cep: cepFormData.cep,
-                address: cepFormData.address,
-                city: cepFormData.city,
-                state: cepFormData.state,
-                number: cepFormData.number,
-                complemento: cepFormData.complemento,
-                cpf: cardFormData.cpf,
-                price: totalAmount,
-                date: new Date(),
-                purchaseId: purchaseId,
-              },
-            ],
-          }
-        );
-        console.log("Redirecionando para o sucesso");
-        await new Promise((resolve) => setTimeout(resolve, 0));
-        SendEmail();
-        
+        try {
+          await axios.post(
+            "https://mongodb-jorri-next-production.up.railway.app/api/addPurchase",
+            {
+              purchase: [
+                {
+                  product: itemName,
+                  itemId: itemId,
+                  email,
+                  cep: cepFormData.cep,
+                  address: cepFormData.address,
+                  city: cepFormData.city,
+                  state: cepFormData.state,
+                  number: cepFormData.number,
+                  complemento: cepFormData.complemento,
+                  cpf: cardFormData.cpf,
+                  price: totalAmount,
+                  date: new Date(),
+                  purchaseId: purchaseId,
+                },
+              ],
+            }
+          );
+          console.log("Redirecionando para o sucesso");
+           SendEmail();
+        } catch (error) {
+          console.error("Erro no pagamento:", error);
+          alert("Pagamento recusado, por favor preencha todos os campos.");
+        }
       }
     } catch (error) {
-      console.error("Erro no pagamento:", error);
-      alert("Pagamento recusado, por favor preencha todos os campos.");
+      console.error("Erro ao processar pagamento:", error);
+      alert("Erro ao processar pagamento. Por favor, tente novamente mais tarde.");
     }
   };
 
