@@ -6,9 +6,7 @@ import axios from "axios";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { SendEmailConst } from "../SendEmail";
-import { useEffect, useState } from "react";
-import { setPurchaseID } from "@/contexts/purchaseGlobal";
-
+import { usePurchaseContext } from "@/contexts/PurchaseContext";
 
 export const PaymentMethodsOrder = () => {
   const router = useRouter();
@@ -17,6 +15,7 @@ export const PaymentMethodsOrder = () => {
   const { cepFormData } = useFormContext();
   const { data: session } = useSession();
   const { SendEmail } = SendEmailConst();
+  const {setPurchase, purchaseData} = usePurchaseContext()
 
   const email = session?.user?.email;
   const itemName = cartItems.map((item) => item.name);
@@ -44,41 +43,59 @@ export const PaymentMethodsOrder = () => {
         }
       );
       const response = res.data;
-      const idOrder =  res.data.id
-      console.log('id const', idOrder)
-      setPurchaseID(idOrder)
+      console.log(response)
+      const purchaseId = res.data.id
+      setPurchase(prevPurchase => ({
+        ...prevPurchase,
+        idOrder: purchaseId || null,
+        namePerson: prevPurchase?.namePerson || '', // Defina um valor padrão para namePerson
+        cpf: prevPurchase?.cpf || '', // Defina um valor padrão para cpf
+        itemName: prevPurchase?.itemName || [], // Defina um valor padrão para itemName
+        itemPrice: prevPurchase?.itemPrice || [], // Defina um valor padrão para itemPrice
+        itemId: prevPurchase?.itemId || [], // Defina um valor padrão para itemId
+        totalAmount: prevPurchase?.totalAmount || 0, // Defina um valor padrão para totalAmount
+        cep: prevPurchase?.cep || '', // Defina um valor padrão para cep
+        address: prevPurchase?.address || '', // Defina um valor padrão para address
+        city: prevPurchase?.city || '', // Defina um valor padrão para city
+        state: prevPurchase?.state || '', // Defina um valor padrão para state
+        number: prevPurchase?.number || '', // Defina um valor padrão para number
+        complemento: prevPurchase?.complemento || '', // Defina um valor padrão para complemento
+        email: prevPurchase?.email || null, // Defina um valor padrão para email
+      }));
+      console.log('id api',purchaseData?.idOrder)
       const href_for_pay = res.data.href_for_pay;
       const status = res.data.status;
 
+      await axios.post(
+        "https://mongodb-jorri-next-production.up.railway.app/api/addPurchase",
+        {
+          purchase: [
+            {
+              product: itemName,
+              itemId: itemId,
+              email,
+              cep: cepFormData.cep,
+              address: cepFormData.address,
+              city: cepFormData.city,
+              state: cepFormData.state,
+              number: cepFormData.number,
+              complemento: cepFormData.complemento,
+              cpf: cardFormData.cpf,
+              price: totalAmount,
+              date: new Date(),
+              purchaseId: purchaseId,
+            },
+          ],
+        }
+      );
+
       if (status === "ACTIVE") {
-        router.push(`${href_for_pay}`);
+        //router.push(`${href_for_pay}`);
       } else if (status === "PAY") {
         console.log("Redirecionando para o sucesso");
         await new Promise((resolve) => setTimeout(resolve, 0));
         SendEmail();
         
-        await axios.post(
-          "https://mongodb-jorri-next-production.up.railway.app/api/addPurchase",
-          {
-            purchase: [
-              {
-                product: itemName,
-                itemId: itemId,
-                email,
-                cep: cepFormData.cep,
-                address: cepFormData.address,
-                city: cepFormData.city,
-                state: cepFormData.state,
-                number: cepFormData.number,
-                complemento: cepFormData.complemento,
-                cpf: cardFormData.cpf,
-                price: totalAmount,
-                date: new Date(),
-                purchaseId: idOrder,
-              },
-            ],
-          }
-        );
       }
     } catch (error) {
       console.error("Erro no pagamento:", error);

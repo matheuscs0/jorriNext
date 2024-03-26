@@ -1,41 +1,36 @@
 import { createContext, useContext, useState, ReactNode } from "react";
 
-type PurchaseData = {
-  id: string;
+type IdContextType = {
+  ids: string[];
+  addId: (id: string) => void;
+  hasId: (id: string) => boolean;
 };
 
-type PurchaseContextType = {
-  purchaseID: string | null;
-  setPurchaseID: (purchase: PurchaseData) => void;
-};
+const IdContext = createContext<IdContextType | undefined>(undefined);
 
-const PurchaseContext = createContext<PurchaseContextType | undefined>(
-  undefined
-);
-
-export const usePurchaseID = () => {
-  const context = useContext(PurchaseContext);
+export const useIds = () => {
+  const context = useContext(IdContext);
   if (!context) {
-    throw new Error(
-      "usePurchaseID deve ser usado dentro de um PurchaseProvider"
-    );
+    throw new Error("useIds deve ser usado dentro de um IdProvider");
   }
   return context;
 };
 
-export const PurchaseProviderID: React.FC<{ children: ReactNode }> = ({
-  children,
-}) => {
-  const [purchaseID, setPurchaseID] = useState<string | null>(null);
+export const IdProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+  const [ids, setIds] = useState<string[]>([]);
 
-  const updatePurchaseID = (purchase: PurchaseData) => {
-    setPurchaseID(purchase.id);
+  const addId = (id: string) => {
+    setIds((prevIds) => [...prevIds, id]);
+  };
+
+  const hasId = (id: string) => {
+    return ids.includes(id);
   };
 
   return (
-    <PurchaseContext.Provider value={{ purchaseID, setPurchaseID: updatePurchaseID }}>
+    <IdContext.Provider value={{ ids, addId, hasId }}>
       {children}
-    </PurchaseContext.Provider>
+    </IdContext.Provider>
   );
 };
 

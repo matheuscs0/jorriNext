@@ -14,7 +14,7 @@ interface Purchase {
     state: string,
     number: string,
     complemento: string,
-    purchaseId: string
+    idOrder: string
     email: string | null | undefined
 }
 
@@ -32,8 +32,8 @@ interface PurchaseProviderProps {
 export const PurchaseProvider: React.FC<PurchaseProviderProps> = ({ children }) => {
   const [purchaseData, setPurchaseData] = useState<Purchase | null>(null);
 
-  const setPurchase: PurchaseContextProps['setPurchase'] = (data) => {
-      setPurchaseData(data);
+  const setPurchase: PurchaseContextProps['setPurchase'] = (prevPurchase) => {
+      setPurchaseData(prevPurchase);
 
   };
 

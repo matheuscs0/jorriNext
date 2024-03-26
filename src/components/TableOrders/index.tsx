@@ -18,9 +18,9 @@ export const TableOrders = () => {
     cpf: string;
     date: string;
     email: string;
-    itemId: number[]; // ou string[], dependendo do tipo real dos seus IDs
+    itemId: number[]; 
     number: string;
-    price: number ; // ou string, dependendo do tipo real do preço
+    price: number ; 
     purchaseId: string;
     state: string;
   };
