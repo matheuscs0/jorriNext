@@ -66,32 +66,31 @@ export const PaymentMethodsOrder = () => {
       const href_for_pay = res.data.href_for_pay;
       const status = res.data.status;
 
-      await axios.post(
-        "https://mongodb-jorri-next-production.up.railway.app/api/addPurchase",
-        {
-          purchase: [
-            {
-              product: itemName,
-              itemId: itemId,
-              email,
-              cep: cepFormData.cep,
-              address: cepFormData.address,
-              city: cepFormData.city,
-              state: cepFormData.state,
-              number: cepFormData.number,
-              complemento: cepFormData.complemento,
-              cpf: cardFormData.cpf,
-              price: totalAmount,
-              date: new Date(),
-              purchaseId: purchaseId,
-            },
-          ],
-        }
-      );
-
       if (status === "ACTIVE") {
-        //router.push(`${href_for_pay}`);
+        router.push(`${href_for_pay}`);
       } else if (status === "PAY") {
+        await axios.post(
+          "https://mongodb-jorri-next-production.up.railway.app/api/addPurchase",
+          {
+            purchase: [
+              {
+                product: itemName,
+                itemId: itemId,
+                email,
+                cep: cepFormData.cep,
+                address: cepFormData.address,
+                city: cepFormData.city,
+                state: cepFormData.state,
+                number: cepFormData.number,
+                complemento: cepFormData.complemento,
+                cpf: cardFormData.cpf,
+                price: totalAmount,
+                date: new Date(),
+                purchaseId: purchaseId,
+              },
+            ],
+          }
+        );
         console.log("Redirecionando para o sucesso");
         await new Promise((resolve) => setTimeout(resolve, 0));
         SendEmail();
