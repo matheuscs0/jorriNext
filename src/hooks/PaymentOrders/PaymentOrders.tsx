@@ -71,7 +71,7 @@ export const PaymentMethodsOrder = () => {
 
       if (status === "ACTIVE") {
         setTimeout(() => {
-          //router.push(href_for_pay);
+          router.push(href_for_pay);
         }, 500);
       } else if (status === "PAY") {
         try {
