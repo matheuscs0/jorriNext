@@ -63,17 +63,15 @@ export const PaymentMethodsOrder = () => {
         email: prevPurchase?.email || null, // Defina um valor padrão para email
       }));
       console.log('id api', purchaseId);
-      // Restante do código...
     } else {
       console.error("ID de compra não está definido na resposta da API");
-      // Trate a situação de ID de compra não definido conforme necessário
     }
       const href_for_pay = res.data.href_for_pay;
       const status = res.data.status;
 
       if (status === "ACTIVE") {
         setTimeout(() => {
-          router.push(href_for_pay);
+          //router.push(href_for_pay);
         }, 500);
       } else if (status === "PAY") {
         try {

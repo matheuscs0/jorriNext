@@ -8,10 +8,8 @@ import { FaCheckCircle } from "react-icons/fa";
 
 export default function SucessPage() {
   const { purchaseData} = usePurchaseContext()
-
-  const id = purchaseData?.idOrder
   const [loading, setLoading] = useState(false)
-  console.log('purchaseID atualizado:', id);
+  console.log('purchaseID atualizado:', purchaseData?.idOrder);
 
     const options = {
         headers: {
@@ -23,7 +21,7 @@ export default function SucessPage() {
       useEffect(() => {
         const fetchData = async () => {
           try {
-            const res = await axios.get(`https://sandbox.api.pagseguro.com/checkouts/${id}`, options);
+            const res = await axios.get(`https://sandbox.api.pagseguro.com/checkouts/${purchaseData?.idOrder}`, options);
             console.log("res", res);
             setLoading(true);
           } catch (error) {
@@ -46,7 +44,7 @@ export default function SucessPage() {
                 </div>
                 <div className="w-full justify-center items-center flex mt-10 flex-col border-b pb-10">
                     <h1 className="text-2xl flex ">Olá <span className="font-bold"> </span>, sua compra foi confirmada</h1>
-                    <p>ID DA COMPRA: {id}</p>
+                    <p>ID DA COMPRA: {purchaseData?.idOrder}</p>
                     <p className="w-1/2 mt-10 text-xl text-center">
                     Parabéns! Sua compra foi confirmada com sucesso. Agradecemos por escolher nossos produtos. Seu suporte significa o mundo para nós.
 
