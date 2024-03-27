@@ -9,7 +9,7 @@ import { FaCheckCircle } from "react-icons/fa";
 export default function SucessPage() {
   const { purchaseData } = usePurchaseContext();
   const [loading, setLoading] = useState(false);
-  console.log("purchaseData", purchaseData);
+  console.log("purchaseData:", purchaseData);
   console.log("purchaseID atualizado:", purchaseData?.idOrder);
 
   const options = {
