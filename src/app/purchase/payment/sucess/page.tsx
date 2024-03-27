@@ -34,7 +34,7 @@ export default function SucessPage() {
     };
 
     fetchData();
-  }, []);
+  }, [purchaseData]);
 
   return (
     <>
