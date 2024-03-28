@@ -2,18 +2,31 @@ import { useCart } from "@/contexts/CartProvider"
 import { formatPrice } from '../../hooks/formatPrice/formatPrice';
 import { Button } from "../Buttons/DefaultButton";
 import { PaymentMethodsOrder } from "@/hooks/PaymentOrders";
+import { useState } from "react";
+import { Loading } from "../Loading";
 
 export const PaymentOrder = () => {
 
     const {cartItems, deleteProduct, totalAmount, frete, SubTotalAmount, discount} = useCart()
     const {PaymentCardCredit} = PaymentMethodsOrder()
+    const [isLoading, setIsLoading] = useState(false)
 
     const handleSubmit = async () => {
-        PaymentCardCredit()
-      };
+        setIsLoading(true); // Define isLoading como true antes de enviar o pagamento
+        try {
+            const res = await PaymentCardCredit();
+            console.log(res);
+        } catch (error) {
+            console.error("Erro ao processar pagamento:", error);
+            alert("Erro ao processar pagamento. Por favor, tente novamente mais tarde.");
+        } finally {
+            setIsLoading(false); // Define isLoading como false independentemente do resultado
+        }
+    };
 
     return(
         <>
+        {isLoading && <Loading />}
             <div className={`w-[400px] h-[635px] flex flex-col bg-zinc-100 rounded-md shadow-md`}>
                 <div className="w-full p-3 border-b"><h1 className="font-bold text-xl">Produtos</h1></div>
                 <div className="overflow-y-scroll w-full h-80 p-3 border-b">
