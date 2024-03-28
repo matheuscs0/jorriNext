@@ -34,7 +34,7 @@ export default function Home() {
           </div>
         <section className='flex flex-wrap justify-center items-center gap-5 p-10'>
         {loading ? (
-          <div className='w-full h-screen justify-center flex '><Loading size={50}/></div>
+          <div className='w-full h-screen justify-center flex '><Loading/></div>
         ): (
           <ProductCard/>
         )} 

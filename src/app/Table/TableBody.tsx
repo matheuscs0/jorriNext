@@ -37,7 +37,7 @@ export function TableBody() {
                                 cod: {product.id}
                             </p>
                         </td>
-                        <td className="text-left text-sm py-1 text-[#5D6D74]">Em ate{loading ? (<Loading size={20}/>) : ( <p>{deliveryTime}</p>)} dias uteis</td>
+                        <td className="text-left text-sm py-1 text-[#5D6D74]">Em ate{loading ? (<Loading/>) : ( <p>{deliveryTime}</p>)} dias uteis</td>
                         <td className="text-left text-sm py-1 text-[#5D6D74]">{formatPrice(product.price)}</td>
                         <td className="text-left text-sm py-1 text-[#5D6D74] pl-10">1</td>
                     </tr>

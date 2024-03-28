@@ -53,7 +53,7 @@ export const TableTotalMobile = () => {
                 </div>
                 <div className="flex flex-col gap-3">
                     <p>{formatPrice(SubTotalAmount)}</p>
-                    <p>{loading ? (<div className="flex justify-center"><Loading size={20}/></div>): (<p>{formatPrice(frete)}</p>)}</p>
+                    <p>{loading ? (<div className="flex justify-center"><Loading/></div>): (<p>{formatPrice(frete)}</p>)}</p>
                     <p>{formatPrice(totalAmount)}</p>
                 </div>
             </div>
