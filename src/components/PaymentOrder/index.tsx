@@ -27,7 +27,7 @@ export const PaymentOrder = () => {
     return(
         <>
         {isLoading && <Loading />}
-            <div className={`w-[400px] h-[635px] flex flex-col bg-zinc-100 rounded-md shadow-md`}>
+            <div className={`w-[350px] h-[635px] flex flex-col bg-zinc-100 rounded-md shadow-md`}>
                 <div className="w-full p-3 border-b"><h1 className="font-bold text-xl">Produtos</h1></div>
                 <div className="overflow-y-scroll w-full h-80 p-3 border-b">
                 {cartItems.map((product) => (

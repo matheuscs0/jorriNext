@@ -5,6 +5,7 @@ import { Loading } from '@/components/Loading';
 import { ProductCard } from '@/components/ProductCard';
 import { DivAboutOne } from '@/components/DivAboutOne';
 import { ImgHome } from '@/components/ImgHome';
+import { AiOutlineLoading } from 'react-icons/ai';
 
 export default function Home() {
   
@@ -34,7 +35,7 @@ export default function Home() {
           </div>
         <section className='flex flex-wrap justify-center items-center gap-5 p-10'>
         {loading ? (
-          <div className='w-full h-screen justify-center flex '><Loading/></div>
+          <div className='w-full h-screen justify-center flex '><AiOutlineLoading className='animate-spin' size={34}/></div>
         ): (
           <ProductCard/>
         )} 

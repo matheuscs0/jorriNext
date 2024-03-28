@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { ShippingFrete } from "@/components/shippingFrete";
 import { ButtonLink } from "@/components/Buttons/ButtonLink";
 import { Loading } from "@/components/Loading";
+import { AiOutlineLoading } from "react-icons/ai";
 
 export const TableTotalMobile = () => {
     const { totalAmount, SubTotalAmount, frete } = useCart();
@@ -18,7 +19,7 @@ export const TableTotalMobile = () => {
   }, [frete]);
 
     return(
-        <div className="w-[400px] flex flex-col bg-zinc-100 rounded-md shadow-md">
+        <div className="w-[350px] flex flex-col bg-zinc-100 rounded-md shadow-md">
             <div className="w-full justify-center flex mt-5"><h1 className="text-xl font-bold">Resumo</h1></div>
             <div className="overflow-y-scroll w-full h-56 p-3 border-b">
                 {cartItems.map((product) => (
@@ -53,14 +54,14 @@ export const TableTotalMobile = () => {
                 </div>
                 <div className="flex flex-col gap-3">
                     <p>{formatPrice(SubTotalAmount)}</p>
-                    <p>{loading ? (<div className="flex justify-center"><Loading/></div>): (<p>{formatPrice(frete)}</p>)}</p>
+                    <p>{loading ? (<div className="flex justify-center"><AiOutlineLoading className='animate-spin' size={34}/></div>): (<p>{formatPrice(frete)}</p>)}</p>
                     <p>{formatPrice(totalAmount)}</p>
                 </div>
             </div>
             <div>
                 <ShippingFrete/>
             </div>
-            <div className="mx-5 mt-5 gap-2">
+            <div className="mx-5 my-5 gap-2">
                 <div className="mb-2"><ButtonLink href='/purchase/payment'>Finalizar compra</ButtonLink></div>
                 <div><ButtonLink href='/'>Continuar compra</ButtonLink></div>
             </div>

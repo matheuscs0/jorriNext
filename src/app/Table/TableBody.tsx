@@ -4,6 +4,7 @@ import { useCart } from "@/contexts/CartProvider";
 import { formatPrice } from "@/hooks/formatPrice/formatPrice";
 import { ProductType } from "@/types/ProductsType";
 import { useEffect, useState } from "react";
+import { AiOutlineLoading } from "react-icons/ai";
 
 export function TableBody() {
     const { cartItems, deliveryTime } = useCart();
@@ -37,7 +38,7 @@ export function TableBody() {
                                 cod: {product.id}
                             </p>
                         </td>
-                        <td className="text-left text-sm py-1 text-[#5D6D74]">Em ate{loading ? (<Loading/>) : ( <p>{deliveryTime}</p>)} dias uteis</td>
+                        <td className="text-left text-sm py-1 text-[#5D6D74]">Em ate{loading ? (<AiOutlineLoading className='animate-spin' size={34}/>) : ( <p>{deliveryTime}</p>)} dias uteis</td>
                         <td className="text-left text-sm py-1 text-[#5D6D74]">{formatPrice(product.price)}</td>
                         <td className="text-left text-sm py-1 text-[#5D6D74] pl-10">1</td>
                     </tr>

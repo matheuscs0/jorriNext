@@ -51,7 +51,6 @@ export const PaymentMethodsOrder = () => {
 
       if (status === "ACTIVE") {
         setTimeout(() => {
-          <div className="w-full flex justify-center items-center bg-black/20 ">Carregando...</div>
           router.push(href_for_pay);
         }, 500);
       }
