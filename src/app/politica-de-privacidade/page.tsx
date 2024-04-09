@@ -325,17 +325,8 @@ export default function Politica() {
           Todos os direitos reservados. É proibida a reprodução total ou parcial
           deste conteúdo sem autorização expressa dos autores. <br />
           <br />
-          Jorri Joias <br />
+          <strong>Jorri Joias</strong> <br />
           <br />
-          Sobre a empresa: A Jorri Joias é uma empresa que atua no mercado de
-          jóias desde 1990. Sua loja online foi inaugurada em 2010, com o
-          objetivo de levar suas coleções exclusivas para clientes de todo o
-          Brasil. Com um catálogo diversificado, que inclui desde peças
-          clássicas até designs contemporâneos, a Jorri Joias tem o compromisso
-          de oferecer produtos de alta qualidade e excelente atendimento aos
-          seus clientes. Seja para uma ocasião especial ou para o dia a dia, as
-          jóias da Jorri são a escolha perfeita para quem busca estilo e
-          sofisticação. <br />
           <br />
         </p>
       </div>
