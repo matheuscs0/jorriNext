@@ -41,7 +41,7 @@ export const Footer = () => {
         <div className="">
           <h1 className="text-lg font-bold">Informações legais</h1>
           <div className="flex flex-col">
-            <Link href="">•Politica de privacidade</Link>
+            <Link href="/politica-de-privacidade">•Politica de privacidade</Link>
             <Link href="">•Sobre nós</Link>
           </div>
         </div>

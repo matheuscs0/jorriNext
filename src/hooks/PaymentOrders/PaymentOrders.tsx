@@ -45,7 +45,7 @@ export const PaymentMethodsOrder = () => {
       );
 
       const purchaseId = res.data.id;
-      nookies.set({ res }, "purchaseId", `${purchaseId}`, { path: "/" });
+      nookies.set({ res }, "purchaseId", `${purchaseId}`);
       const href_for_pay = res.data.href_for_pay;
       const status = res.data.status;
 
