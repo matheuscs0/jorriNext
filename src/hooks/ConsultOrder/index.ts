@@ -3,7 +3,7 @@ import nookies from 'nookies'
 import { SendEmailConst } from '../SendEmail';
 
 export async function consultApiOrder() {
-  const token = process.env.NEXT_PUBLIC_BEARER_TOKEN;
+  const token = process.env.BEARER_TOKEN;
 
   const idOrder = nookies.get(null,'purchaseId')['purchaseId'];
   console.log(idOrder)
