@@ -12,7 +12,7 @@ export async function consultApiOrder() {
     const res = await axios.get(`https://sandbox.api.pagseguro.com/checkouts/${idOrder}`, {
       headers: {
         Accept: 'application/json',
-        Authorization: token,
+        Authorization: `Bearer ${token}`,
       },
     });
     const data = res.data
