@@ -5,8 +5,8 @@ import GoogleProvider from "next-auth/providers/google";
 const OPTIONS: AuthOptions = {
     providers: [
         GoogleProvider({
-            clientId:  `778504005240-p0oineqk4ac7hpmcs2n2vdntau1430la.apps.googleusercontent.com`,
-            clientSecret: `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`,
+            clientId:  `${process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}`,
+            clientSecret: `${process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET}`,
             
         }) ,
     ],
