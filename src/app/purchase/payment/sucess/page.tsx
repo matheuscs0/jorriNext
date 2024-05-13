@@ -6,56 +6,41 @@ import { useEffect, useState } from "react";
 import { FaCheckCircle } from "react-icons/fa";
 import nookies from "nookies";
 import { consultApiOrder } from "@/hooks/ConsultOrder";
-import { useCardFormContext } from "@/contexts/CardFormContext";
-import { useFormContext } from "@/contexts/formContext";
 import { useCart } from "@/contexts/CartProvider";
 import { useSession } from "next-auth/react";
+import { SendEmailConst } from "@/hooks/SendEmail";
 
 export default function SucessPage() {
   const [loading, setLoading] = useState(false);
   const idOrder = nookies.get(null, "purchaseId")["purchaseId"];
   const { cartItems, totalAmount } = useCart();
-  const { cardFormData } = useCardFormContext();
-  const { cepFormData } = useFormContext();
+  const { SendEmail } = SendEmailConst();
   const { data: session } = useSession();
-
-  const email = session?.user?.email;
-  const itemName = cartItems.map((item) => item.name);
-  const itemPrice = cartItems.map((item) => item.price);
-  const itemId = cartItems.map((item) => item.id);
+  const token = process.env.NEXT_PUBLIC_BEARER_TOKEN;
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const res = await consultApiOrder();
         setLoading(true);
-        console.log(res);
-        if (res.status === "PAY") {
-          await axios.post(
-            "https://mongodb-jorri-next-production.up.railway.app/api/addPurchase",
+        const order = res.orders[0].id;
+        try {
+           const resOrder = await axios.get(
+            `https://sandbox.api.pagseguro.com/orders/${order}`,
             {
-              purchase: [
-                {
-                  product: itemName,
-                  itemId: itemId,
-                  email,
-                  cep: cepFormData.cep,
-                  address: cepFormData.address,
-                  city: cepFormData.city,
-                  state: cepFormData.state,
-                  number: cepFormData.number,
-                  complemento: cepFormData.complemento,
-                  cpf: cardFormData.cpf,
-                  price: totalAmount,
-                  date: new Date(),
-                  purchaseId: idOrder,
-                  status: res.status,
-                },
-              ],
+              headers: {
+                Accept: "application/json",
+                Authorization: `Bearer ${token}`,
+              },
             }
           );
-          console.log("Redirecionando para o sucesso");
-        }
+          console.log(resOrder)
+          if(resOrder.data.charges[0].status === "PAID"){
+            console.log('oi')
+            SendEmail()
+          }
+          return resOrder
+        } catch (error) {}
       } catch (error) {
         console.error("Erro ao tentar se tornar um produtor:", error);
       }
