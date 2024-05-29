@@ -26,13 +26,14 @@ export const SearchCep = () => {
   
     const searchCep = async () => {
       try {
-        const response = await axios.get(`https://viacep.com.br/ws/${cepFormData.cep}/json/`);
+        const response = await axios.get(`https://cep.awesomeapi.com.br/json/${cepFormData.cep}`);
         const { data } = response;
+        console.log(data)
         setCepFormData((prevData) => ({
           ...prevData,
-          address: data.logradouro,
-          city: data.localidade,
-          state: data.uf,
+          address: data.address,
+          city: data.city,
+          state: data.state,
         }));
       } catch (error) {
         console.error('Erro ao buscar CEP:', error);
@@ -43,6 +44,7 @@ export const SearchCep = () => {
       event.preventDefault();
       console.log(cepFormData);
     };
+
     return (
         <form onSubmit={handleSubmit} className={`w-[350px] ${open ? '' : 'h-28'} flex flex-col bg-zinc-100 rounded-md shadow-md duration-500 transition-all sm:w-[750px] `}>
             <div className="w-full border-b p-3">

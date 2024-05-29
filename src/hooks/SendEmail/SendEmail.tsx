@@ -3,7 +3,7 @@
 import { useSession } from "next-auth/react";
 import emailjs from "@emailjs/browser";
 import { useEffect, useState } from "react";
-import { consultApiOrder } from "../ConsultOrder";
+import { consultApiCheckout } from "../ConsultOrder";
 import { useCart } from "@/contexts/CartProvider";
 import { useFormContext } from "@/contexts/formContext";
 import axios from "axios";
@@ -11,8 +11,7 @@ import { formatPrice } from "../formatPrice/formatPrice";
 
 export const SendEmailConst = () => {
   const { totalAmount, frete } = useCart();
-  const { cepFormData } = useFormContext();
-  const token = process.env.NEXT_PUBLIC_BEARER_TOKEN;
+  const { cepFormData } = useFormContext()
   const { data: session } = useSession();
   const [items, setItems] = useState({
       ItemName: '',
@@ -21,24 +20,15 @@ export const SendEmailConst = () => {
       Name: '',
       Email: ''
   });
-  const res = consultApiOrder()
-  console.log(res)
+  const res = consultApiCheckout()
 
   useEffect(() => {
       const fetchData = async () => {
           try {
-              const res = await consultApiOrder(); // Chame a função consultApiOrder aqui
-              const order = res.orders[0].id;
+              const res = await consultApiCheckout(); // Chame a função consultApiOrder aqui
+              const orderId = res.orders[0].id;
               try {
-                 const resOrder = await axios.get(
-                  `https://sandbox.api.pagseguro.com/orders/${order}`,
-                  {
-                    headers: {
-                      Accept: "application/json",
-                      Authorization: `Bearer ${token}`,
-                    },
-                  }
-                );
+                const resOrder = await axios.post(`https://mongodb-jorri-next-production.up.railway.app/consultApiOrder/${orderId}`);
                 console.log(resOrder.data.items)
                 if (resOrder && resOrder.data.items && resOrder.data.customer) {
                     const customer = resOrder.data.customer;
@@ -60,7 +50,6 @@ export const SendEmailConst = () => {
   }, []);
 
   const email = items.Email || session?.user?.email || "";
-  console.log(items)
   const total = formatPrice(items.ItemPrice);
 
   function SendEmail() {
@@ -83,7 +72,7 @@ export const SendEmailConst = () => {
               templateParams,
               "whjzz6VfAbbzUVi53"
           ).then((res) => {
-            console.log("EMail enviado", res)
+            console.log("Email enviado", res)
           })
   }
 
