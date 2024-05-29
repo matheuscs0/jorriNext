@@ -5,7 +5,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { FaCheckCircle } from "react-icons/fa";
 import nookies from "nookies";
-import { consultApiOrder } from "@/hooks/ConsultOrder";
+import { consultApiCheckout } from "@/hooks/ConsultOrder";
 import { useCart } from "@/contexts/CartProvider";
 import { useSession } from "next-auth/react";
 import { SendEmailConst } from "@/hooks/SendEmail";
@@ -21,19 +21,11 @@ export default function SucessPage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await consultApiOrder();
+        const res = await consultApiCheckout();
         setLoading(true);
-        const order = res.orders[0].id;
+        const orderId = res.orders[0].id;
         try {
-           const resOrder = await axios.get(
-            `https://sandbox.api.pagseguro.com/orders/${order}`,
-            {
-              headers: {
-                Accept: "application/json",
-                Authorization: `Bearer ${token}`,
-              },
-            }
-          );
+          const resOrder = await axios.post(`https://mongodb-jorri-next-production.up.railway.app/consultApiOrder/${orderId}`);
           console.log(resOrder)
           if(resOrder.data.charges[0].status === "PAID"){
             console.log('oi')
