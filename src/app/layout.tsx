@@ -28,6 +28,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
+   
     <html lang="pt-br" className={montserrat.className}>
       <head>
         <link rel="icon" href="/favicon.png" sizes="32x32" />

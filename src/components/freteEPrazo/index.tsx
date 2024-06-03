@@ -5,6 +5,8 @@ import { ChangeEvent } from "react";
 import { Input } from "../Input";
 import { FaShippingFast } from "react-icons/fa";
 import { formatPrice } from "@/hooks/formatPrice/formatPrice";
+import toast from "react-hot-toast";
+import { toastConfig } from "@/app/helper/toast/toastConfig";
 
 export const FretePrazo = () => {
     const { cepFormData, setCepFormData } = useFormContext();
@@ -30,7 +32,7 @@ export const FretePrazo = () => {
           setDeliveryTime(deliveryTime)
           setFrete(shippingFrete)
         } catch (error) {
-          console.error('Erro ao buscar CEP:', error);
+            toast.error("Erro ao buscar CEP, verifique os campos", toastConfig);
         }
       }
 

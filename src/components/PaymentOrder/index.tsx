@@ -4,6 +4,8 @@ import { Button } from "../Buttons/DefaultButton";
 import { PaymentMethodsOrder } from "@/hooks/PaymentOrders";
 import { useState } from "react";
 import { Loading } from "../Loading";
+import toast from "react-hot-toast";
+import { toastConfig } from "@/app/helper/toast/toastConfig";
 
 export const PaymentOrder = () => {
 
@@ -15,10 +17,9 @@ export const PaymentOrder = () => {
         setIsLoading(true); // Define isLoading como true antes de enviar o pagamento
         try {
             const res = await PaymentCardCredit();
-            console.log(res);
         } catch (error) {
-            console.error("Erro ao processar pagamento:", error);
-            alert("Erro ao processar pagamento. Por favor, tente novamente mais tarde.");
+            toast.error("Erro ao realizar pagamento, verifique os campos", toastConfig);
+            
         } finally {
             setIsLoading(false); // Define isLoading como false independentemente do resultado
         }

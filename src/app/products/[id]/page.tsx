@@ -8,6 +8,8 @@ import { formatPrice, installmentPrice } from "@/hooks/formatPrice/formatPrice";
 import { useSize } from "@/contexts/SizeContext";
 import { IoIosArrowDown } from "react-icons/io";
 import { FretePrazo } from "@/components/freteEPrazo";
+import toast from "react-hot-toast";
+import { toastConfig } from "@/app/helper/toast/toastConfig";
 
 type ProductsPageProps = {
   params: {
@@ -63,7 +65,8 @@ export default function ProductsDetailsPage({ params }: ProductsPageProps) {
       const data = await res.json();
       setProducts([data]);
     } catch (error) {
-      console.error("Erro ao buscar produtos:", error);
+      toast.error("Este produto não esta mais disponível", toastConfig);
+      toast("Você será redirecionado em 3 segundos...", toastConfig);
     }
   }
 

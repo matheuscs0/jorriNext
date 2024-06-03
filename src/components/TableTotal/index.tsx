@@ -7,6 +7,8 @@ import { Loading } from "../Loading";
 import { useRouter } from "next/navigation";
 import { Button } from "../Buttons/DefaultButton";
 import { AiOutlineLoading } from "react-icons/ai";
+import toast from "react-hot-toast";
+import { toastConfig } from "@/app/helper/toast/toastConfig";
 
 export const TableTotal = () => {
     const { totalAmount, SubTotalAmount, frete } = useCart();
@@ -24,7 +26,7 @@ export const TableTotal = () => {
     if (frete) {
       push('/purchase/payment')
     } else{
-        alert('Escreva um CEP válido')
+      toast.error("Escreva um CEP válido para continuar", toastConfig);
     }
   }
 

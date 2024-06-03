@@ -6,6 +6,8 @@ import axios from "axios";
 import { Button } from "../Buttons/DefaultButton";
 import { useFormContext } from "@/contexts/formContext";
 import { useCardFormContext } from "@/contexts/CardFormContext";
+import toast from "react-hot-toast";
+import { toastConfig } from "@/app/helper/toast/toastConfig";
 
 export const SearchCep = () => {
     const { cepFormData, setCepFormData } = useFormContext();
@@ -36,7 +38,7 @@ export const SearchCep = () => {
           state: data.state,
         }));
       } catch (error) {
-        console.error('Erro ao buscar CEP:', error);
+        toast.error("Erro ao buscar CEP, verifique os campos", toastConfig);
       }
     };
   

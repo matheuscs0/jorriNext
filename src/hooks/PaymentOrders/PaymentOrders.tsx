@@ -8,6 +8,8 @@ import { useRouter } from "next/navigation";
 import { SendEmailConst } from "../SendEmail";
 import { usePurchaseContext } from "@/contexts/PurchaseContext";
 import nookies from 'nookies'
+import toast from "react-hot-toast";
+import { toastConfig } from "@/app/helper/toast/toastConfig";
 
 export const PaymentMethodsOrder = () => {
   const router = useRouter();
@@ -15,13 +17,21 @@ export const PaymentMethodsOrder = () => {
   const { cardFormData } = useCardFormContext();
   const { cepFormData } = useFormContext();
   const { data: session } = useSession();
-  const { SendEmail } = SendEmailConst();
   const { setPurchase } = usePurchaseContext();
 
   const email = session?.user?.email;
   const itemName = cartItems.map((item) => item.name);
   const itemPrice = cartItems.map((item) => item.price);
   const itemId = cartItems.map((item) => item.id);
+
+  const formatAmount = (amount: any) => {
+    // Multiplicar por 100 e arredondar para obter o valor em centavos
+    return Math.round(amount * 100);
+  };
+
+  const total = formatAmount(totalAmount)
+  console.log('totsl',total)
+
 
   const PaymentCardCredit = async () => {
     try {
@@ -34,7 +44,7 @@ export const PaymentMethodsOrder = () => {
           itemName,
           itemPrice,
           itemId,
-          totalAmount,
+          total,
           cep: cepFormData.cep,
           address: cepFormData.address,
           city: cepFormData.city,
@@ -46,9 +56,9 @@ export const PaymentMethodsOrder = () => {
 
       const purchaseId = res.data.id;
       nookies.set({ res }, "purchaseId", `${purchaseId}`);
+      toast.success("Redirecionando para o pagamento...", toastConfig);
       const href_for_pay = res.data.href_for_pay;
       const status = res.data.status;
-
       if (status === "ACTIVE") {
         setTimeout(() => {
           router.push(href_for_pay);
@@ -56,8 +66,7 @@ export const PaymentMethodsOrder = () => {
       }
       return res.data;
     } catch (error) {
-      console.error("Erro ao processar pagamento:", error);
-      alert("Erro ao processar pagamento. Por favor, tente novamente mais tarde.");
+      toast.error("Erro ao realizar pagamento, verifique os campos", toastConfig);
     }
   };
 

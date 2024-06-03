@@ -1,4 +1,3 @@
-
 'use client'
 import { useSession } from "next-auth/react";
 import emailjs from "@emailjs/browser";
@@ -7,76 +6,95 @@ import { consultApiCheckout } from "../ConsultOrder";
 import { useCart } from "@/contexts/CartProvider";
 import { useFormContext } from "@/contexts/formContext";
 import axios from "axios";
-import { formatPrice } from "../formatPrice/formatPrice";
+import CurrencyFormat from 'react-currency-format';
 
-export const SendEmailConst = () => {
+export const useSendEmail = () => {
   const { totalAmount, frete } = useCart();
-  const { cepFormData } = useFormContext()
+  const { cepFormData } = useFormContext();
   const { data: session } = useSession();
   const [items, setItems] = useState({
-      ItemName: '',
-      Quantity: 0,
-      ItemPrice: 0,
-      Name: '',
-      Email: ''
+    ItemName: '',
+    Quantity: 0,
+    ItemPrice: 0,
+    Name: '',
+    Email: '',
+    Rua: '',
+    City: '',
+    State: '',
+    Cep: '',
+    Numero: '',
+    Complemento: ''
   });
-  const res = consultApiCheckout()
 
   useEffect(() => {
-      const fetchData = async () => {
-          try {
-              const res = await consultApiCheckout(); // Chame a função consultApiOrder aqui
-              const orderId = res.orders[0].id;
-              try {
-                const resOrder = await axios.post(`https://mongodb-jorri-next-production.up.railway.app/consultApiOrder/${orderId}`);
-                console.log(resOrder.data.items)
-                if (resOrder && resOrder.data.items && resOrder.data.customer) {
-                    const customer = resOrder.data.customer;
-                    const items = resOrder.data.items[0];
-                    setItems({
-                        ItemName: items.name,
-                        Quantity: items.quantity,
-                        ItemPrice: items.unit_amount,
-                        Name: customer.name,
-                        Email: customer.email
-                    });
-                }
-              } catch (error) {}
-          } catch (error) {
-              console.error("Erro ao tentar se tornar um produtor:", error);
-          }
-      };
-      fetchData();
+    const fetchData = async () => {
+      try {
+        const res = await consultApiCheckout();
+        const orderId = res.orders[0].id;
+        try {
+          const resOrder = await axios.post(`https://mongodb-jorri-next-production.up.railway.app/consultApiOrder/${orderId}`);
+          const customer = resOrder.data.customer;
+          const item = resOrder.data.items[0];
+          const shipping = resOrder.data.shipping.address;
+
+          setItems({
+            ItemName: item.name,
+            Quantity: item.quantity,
+            ItemPrice: item.unit_amount,
+            Name: customer.name,
+            Email: customer.email,
+            Rua: shipping.street,
+            City: shipping.locality,
+            State: shipping.region_code,
+            Cep: shipping.postal_code,
+            Numero: shipping.number,
+            Complemento: shipping.complement
+          });
+        } catch (error) {
+          console.error("Erro ao buscar detalhes do pedido:", error);
+        }
+      } catch (error) {
+        console.error("Erro ao tentar se tornar um produtor:", error);
+      }
+    };
+    fetchData();
   }, []);
 
-  const email = items.Email || session?.user?.email || "";
-  const total = formatPrice(items.ItemPrice);
+  const sendEmail = () => {
+    if (!items.Email) return;
 
-  function SendEmail() {
-      const message = `
-       Id: ${items.ItemName}.
-       Produtos: ${items.ItemName}. 
-       Preço: ${items.ItemPrice}.
-       Total: ${total} ja com o frete no valor de ${frete}.
-       Endereço: ${cepFormData.address}, ${cepFormData.city}, ${cepFormData.state}, Número: ${cepFormData.number}, Complemento: ${cepFormData.complemento}, ${cepFormData.cep}.
-       `;
-      const templateParams = {
-          from_name: items.Name,
-          message: message,
-          email: email,
+    const formatPrice = (price: any) => {
+        return price.toFixed(2).replace('.', '');
       };
-      emailjs
-          .send(
-              "service_5gqygbm",
-              "template_o4xviem",
-              templateParams,
-              "whjzz6VfAbbzUVi53"
-          ).then((res) => {
-            console.log("Email enviado", res)
-          })
-  }
 
-  return {
-      SendEmail
+    const email = items.Email || session?.user?.email || "";
+    const total = formatPrice(items.ItemPrice);
+    console.log(total)
+
+    const message = `
+      Id: ${items.ItemName}.
+      Produtos: ${items.ItemName}. 
+      Preço: ${items.ItemPrice}.
+      Total: ${total} já com frete.
+      Endereço: ${items.Rua}, ${items.City}, ${items.State}, Número: ${items.Numero}, Complemento: ${items.Complemento}, ${items.Cep}.
+    `;
+    const templateParams = {
+      from_name: items.Name,
+      message: message,
+      email: email,
+    };
+    emailjs
+      .send(
+        "service_5gqygbm",
+        "template_o4xviem",
+        templateParams,
+        "whjzz6VfAbbzUVi53"
+      ).then((res) => {
+        console.log("Email enviado", res);
+      }).catch((error) => {
+        console.error("Erro ao enviar email:", error);
+      });
   };
+
+  return { sendEmail, items };
 };

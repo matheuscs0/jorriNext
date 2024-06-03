@@ -8,15 +8,12 @@ import nookies from "nookies";
 import { consultApiCheckout } from "@/hooks/ConsultOrder";
 import { useCart } from "@/contexts/CartProvider";
 import { useSession } from "next-auth/react";
-import { SendEmailConst } from "@/hooks/SendEmail";
+import { useSendEmail } from "@/hooks/SendEmail/SendEmail";
 
 export default function SucessPage() {
   const [loading, setLoading] = useState(false);
   const idOrder = nookies.get(null, "purchaseId")["purchaseId"];
-  const { cartItems, totalAmount } = useCart();
-  const { SendEmail } = SendEmailConst();
-  const { data: session } = useSession();
-  const token = process.env.NEXT_PUBLIC_BEARER_TOKEN;
+  const { sendEmail, items} = useSendEmail()
 
   useEffect(() => {
     const fetchData = async () => {
@@ -28,9 +25,11 @@ export default function SucessPage() {
           const resOrder = await axios.post(`https://mongodb-jorri-next-production.up.railway.app/consultApiOrder/${orderId}`);
           console.log(resOrder)
           if(resOrder.data.charges[0].status === "PAID"){
-            console.log('oi')
-            SendEmail()
-          }
+            if (items.ItemName !== "") {
+              sendEmail()
+              console.log('ola')
+            }
+            }
           return resOrder
         } catch (error) {}
       } catch (error) {
@@ -38,7 +37,7 @@ export default function SucessPage() {
       }
     };
     fetchData();
-  }, []);
+  }, [sendEmail]);
 
   return (
     <>

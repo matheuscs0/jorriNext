@@ -4,6 +4,8 @@ import axios from "axios";
 import { ChangeEvent, FormEvent } from "react";
 import { Input } from "../Input";
 import { CiSearch } from "react-icons/ci";
+import { toastConfig } from "@/app/helper/toast/toastConfig";
+import toast from "react-hot-toast";
 
 export const ShippingFrete = () => {
     const { cepFormData, setCepFormData } = useFormContext();
@@ -29,7 +31,7 @@ export const ShippingFrete = () => {
           setDeliveryTime(deliveryTime)
           setFrete(shippingFrete)
         } catch (error) {
-          console.error('Erro ao buscar CEP:', error);
+          toast.error("Erro ao buscar CEP, verifique os campos", toastConfig);
         }
       }
   

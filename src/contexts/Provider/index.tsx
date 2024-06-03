@@ -11,6 +11,7 @@ import { PurchaseProvider } from '../PurchaseContext';
 import { PaymentMethodProvider } from '../PaymentMethodContext';
 import { ProductsProvider } from '../ProductsContext';
 import { IdProvider } from '../PurchaseID';
+import { Toaster } from 'react-hot-toast';
 
 type ProviderProps = {
     children: ReactNode
@@ -30,6 +31,7 @@ const Provider = ({children}: ProviderProps) =>{
                                             <ProductsProvider>
                                                 <IdProvider>
                                             {children}
+                                            
                                             </IdProvider>
                                             </ProductsProvider>
                                         </PaymentMethodProvider>
@@ -40,6 +42,8 @@ const Provider = ({children}: ProviderProps) =>{
                     </SearchProvider>
                 </SideProvider>
             </CartProvider>
+            <Toaster position="top-center"
+  reverseOrder={false}/>
         </SessionProvider>
     )
 }
