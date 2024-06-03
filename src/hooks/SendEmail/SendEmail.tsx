@@ -6,7 +6,6 @@ import { consultApiCheckout } from "../ConsultOrder";
 import { useCart } from "@/contexts/CartProvider";
 import { useFormContext } from "@/contexts/formContext";
 import axios from "axios";
-import CurrencyFormat from 'react-currency-format';
 
 export const useSendEmail = () => {
   const { totalAmount, frete } = useCart();
@@ -63,12 +62,8 @@ export const useSendEmail = () => {
   const sendEmail = () => {
     if (!items.Email) return;
 
-    const formatPrice = (price: any) => {
-        return price.toFixed(2).replace('.', '');
-      };
-
     const email = items.Email || session?.user?.email || "";
-    const total = formatPrice(items.ItemPrice);
+    const total = (items.ItemPrice);
     console.log(total)
 
     const message = `

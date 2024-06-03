@@ -1,2 +1,2 @@
-export { SendEmailConst } from "./SendEmail";
+export { useSendEmail } from "./SendEmail";
 

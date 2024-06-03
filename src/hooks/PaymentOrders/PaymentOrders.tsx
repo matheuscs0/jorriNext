@@ -5,7 +5,6 @@ import { useFormContext } from "@/contexts/formContext";
 import axios from "axios";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { SendEmailConst } from "../SendEmail";
 import { usePurchaseContext } from "@/contexts/PurchaseContext";
 import nookies from 'nookies'
 import toast from "react-hot-toast";
